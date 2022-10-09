@@ -21,5 +21,6 @@ public class GooseComponent {
     private Object setting; //DIPENDE DAL type
     private GooseTooltip tooltip;
     private GoosePopup popup;
+    private boolean requiredMark;
 
 }
