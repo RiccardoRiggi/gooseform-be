@@ -16,6 +16,7 @@ public class GooseLinkedSelect {
     private GooseHttpRequest dynamicValues;
     private String keyName;
     private String valueName;
-    private String idLinkedSelect; //SCATURIRE EVENTO ONCHANGE PER AGGIORNARE LA SECONDA COMBO
+    private String idLinkedSelectPadre; //SCATURIRE EVENTO ONCHANGE PER AGGIORNARE LA SECONDA COMBO
+    private String idLinkedSelectFiglia;
 
 }

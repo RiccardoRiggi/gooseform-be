@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,6 +79,26 @@ public class RootController {
 		listaValori.add(new GooseChiaveValore("treDinamico", "Tre Dinamico DUE"));
 		listaValori.add(new GooseChiaveValore("quattroDinamico", "Quattro Dinamico DUE"));
 		listaValori.add(new GooseChiaveValore("cinqueDinamico", "Cinque Dinamico DUE"));
+		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
+	}
+
+	@PostMapping("/linked/{id}")
+	public ResponseEntity<Object> getDynamicOptionsDue(HttpServletRequest request, @PathVariable String id){
+
+		log.info("HEADER_2: "+request.getHeader("HEADER_2"));
+		try {
+			log.info("BODY: "+request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+		} catch (IOException e) {
+			log.error("Errore lettura body");
+		}
+
+
+		List<GooseChiaveValore> listaValori = new ArrayList<>();
+		listaValori.add(new GooseChiaveValore("unoLinked", "Uno LINKED "+id));
+		listaValori.add(new GooseChiaveValore("dueLinked", "Due LINKED "+id));
+		listaValori.add(new GooseChiaveValore("treLinked", "Tre LINKED "+id));
+		listaValori.add(new GooseChiaveValore("quattroLinked", "Quattro LINKED "+id));
+		listaValori.add(new GooseChiaveValore("cinqueLinked", "Cinque LINKED "+id));
 		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
 	}
 
