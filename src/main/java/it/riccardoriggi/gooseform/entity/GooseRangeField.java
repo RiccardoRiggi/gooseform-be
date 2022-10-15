@@ -12,5 +12,8 @@ public class GooseRangeField {
 	private String name;
 	private boolean disabled;
 	private boolean readonly;
+	private String min;
+	private String max;
+	private String step;
 
 }

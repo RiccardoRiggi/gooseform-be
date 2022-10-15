@@ -113,5 +113,122 @@ public class ComponentiController {
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
 
+	@GetMapping("/goose-radio-static")
+	public ResponseEntity<Object> getGooseRadioStatic(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseRadioStatica());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-radio-dynamic")
+	public ResponseEntity<Object> getGooseRadioDynamic(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseRadioDinamica());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-checkbox")
+	public ResponseEntity<Object> getGooseCheckbox(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseCheckbox());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-email-field")
+	public ResponseEntity<Object> getGooseEmailField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseEmailField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-date-field")
+	public ResponseEntity<Object> getGooseDateField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseDateField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-date-time-field")
+	public ResponseEntity<Object> getGooseDateTimeField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseDateTimeField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-mounth-field")
+	public ResponseEntity<Object> getGooseMounthField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseMounthField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-week-field")
+	public ResponseEntity<Object> getGooseWeekField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseWeekField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-time-field")
+	public ResponseEntity<Object> getGooseTimeField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTimeField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-url-field")
+	public ResponseEntity<Object> getGooseUrlField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseUrlField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-tel-field")
+	public ResponseEntity<Object> getGooseTelField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTelField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-color-field")
+	public ResponseEntity<Object> getGooseColorField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseColorField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/goose-range-field")
+	public ResponseEntity<Object> getGooseRangeField(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseRangeField());
+		form.setComponents(componenti);
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
 
 }

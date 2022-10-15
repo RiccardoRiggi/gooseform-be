@@ -102,4 +102,6 @@ public class RootController {
 		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
 	}
 
+
+
 }
