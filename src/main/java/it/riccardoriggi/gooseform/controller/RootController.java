@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.riccardoriggi.gooseform.entity.GooseChiaveValore;
-import it.riccardoriggi.gooseform.entity.GooseComponent;
-import it.riccardoriggi.gooseform.entity.GooseForm;
 import it.riccardoriggi.gooseform.entity.GooseKeyValue;
-import it.riccardoriggi.gooseform.utils.DemoUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -34,12 +31,8 @@ public class RootController {
 	@GetMapping("/")
 	public ResponseEntity<Object> rootPage(HttpServletRequest request){
 		log.info(request.getPathInfo());
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseTextArea());
 
-		form.setComponents(componenti);
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		return new ResponseEntity<Object>("Goose Form",HttpStatus.OK);
 	}
 
 	@PostMapping("/opzioni")

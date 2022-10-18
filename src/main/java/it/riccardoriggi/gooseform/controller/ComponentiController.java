@@ -25,7 +25,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseTextArea(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseTextArea());
+		componenti.add(DemoUtil.generaGooseTextArea("gooseTextArea"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -34,7 +34,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseSelectStatic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseSelectStatica());
+		componenti.add(DemoUtil.generaGooseSelectStatica("gooseSelectStatica"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -43,7 +43,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseSelectDynamic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseSelectDinamica());
+		componenti.add(DemoUtil.generaGooseSelectDinamica("gooseSelectDinamica"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -52,7 +52,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseSelectDynamicDue(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseSelectDinamicaDue());
+		componenti.add(DemoUtil.generaGooseSelectDinamicaDue("gooseSelectDinamicaDue"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -62,8 +62,8 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseLinkedSelectDynamic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseLinkedSelectPadre());
-		componenti.add(DemoUtil.generaGooseLinkedSelectFiglia());
+		componenti.add(DemoUtil.generaGooseLinkedSelectPadre("gooseLinkedSelectPadre","gooseLinkedSelectFiglia"));
+		componenti.add(DemoUtil.generaGooseLinkedSelectFiglia("gooseLinkedSelectFiglia","gooseLinkedSelectPadre"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -72,7 +72,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseDataListStatic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDataListStatica());
+		componenti.add(DemoUtil.generaGooseDataListStatica("gooseDataListStatica"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -81,7 +81,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseDataListDynamic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDataListDinamica());
+		componenti.add(DemoUtil.generaGooseDataListDinamica("gooseDataListDinamica"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -90,7 +90,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseTextField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseTextField());
+		componenti.add(DemoUtil.generaGooseTextField("gooseTextField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -99,7 +99,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGoosePasswordField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField());
+		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -108,7 +108,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseNumberField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseNumberField());
+		componenti.add(DemoUtil.generaGooseNumberField("gooseNumberField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseRadioStatic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseRadioStatica());
+		componenti.add(DemoUtil.generaGooseRadioStatica("gooseRadioStatica"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -126,7 +126,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseRadioDynamic(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseRadioDinamica());
+		componenti.add(DemoUtil.generaGooseRadioDinamica("gooseRadioDinamica"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -144,7 +144,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseEmailField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseEmailField());
+		componenti.add(DemoUtil.generaGooseEmailField("gooseEmailField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -153,7 +153,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseDateField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDateField());
+		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -162,7 +162,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseDateTimeField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDateTimeField());
+		componenti.add(DemoUtil.generaGooseDateTimeField("gooseDateTimeField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -171,7 +171,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseMounthField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseMounthField());
+		componenti.add(DemoUtil.generaGooseMounthField("gooseMounthField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -180,7 +180,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseWeekField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseWeekField());
+		componenti.add(DemoUtil.generaGooseWeekField("gooseWeekField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -189,7 +189,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseTimeField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseTimeField());
+		componenti.add(DemoUtil.generaGooseTimeField("gooseTimeField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -198,7 +198,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseUrlField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseUrlField());
+		componenti.add(DemoUtil.generaGooseUrlField("gooseUrlField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -207,7 +207,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseTelField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseTelField());
+		componenti.add(DemoUtil.generaGooseTelField("gooseTelField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -216,7 +216,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseColorField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseColorField());
+		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
@@ -225,7 +225,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseRangeField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseRangeField());
+		componenti.add(DemoUtil.generaGooseRangeField("gooseRangeField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}

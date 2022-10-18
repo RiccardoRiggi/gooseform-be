@@ -64,7 +64,7 @@ public class DemoUtil {
 	private static GooseHttpRequest generaUrlDestinazione() {
 		GooseHttpRequest req = new GooseHttpRequest();
 		List<GooseKeyValue> listaHeaders = new ArrayList<>();
-		listaHeaders.add(new GooseKeyValue("chiave","valore"));
+		listaHeaders.add(new GooseKeyValue("chiave", "valore"));
 		req.setHeaders(listaHeaders);
 		req.setMethod("POST");
 		req.setUrl("URL_DESTINAZIONE");
@@ -74,17 +74,17 @@ public class DemoUtil {
 	private static GooseHttpRequest generaUrlOrigine() {
 		GooseHttpRequest req = new GooseHttpRequest();
 		List<GooseKeyValue> listaHeaders = new ArrayList<>();
-		listaHeaders.add(new GooseKeyValue("chiave","valore"));
+		listaHeaders.add(new GooseKeyValue("chiave", "valore"));
 		req.setHeaders(listaHeaders);
 		req.setMethod("POST");
 		req.setUrl("URL_DOVE_VENGONO_LETTI_I_DATI");
 		return req;
 	}
 
-	public static GooseComponent generaGooseTextArea() {
+	public static GooseComponent generaGooseTextArea(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseTextArea");
-		componente.setLabel("Esempio Text Area");
+		componente.setId(id);
+		componente.setLabel("Esempio Text Area - " + id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseTextArea textArea = new GooseTextArea();
@@ -92,10 +92,10 @@ public class DemoUtil {
 		componente.setSetting(textArea);
 		componente.setTooltip(generaGooseTooltip());
 		componente.setType(GooseComponentEnum.GOOSE_TEXT_AREA.getValue());
-		componente.setWidthXl("6");
-		componente.setWidthLg("3");
-		componente.setWidthMd("4");
-		componente.setWidthSm("6");
+		componente.setWidthXl("12");
+		componente.setWidthLg("12");
+		componente.setWidthMd("12");
+		componente.setWidthSm("12");
 		componente.setWidth("12");
 		componente.setRequiredMark(true);
 		return componente;
@@ -117,10 +117,10 @@ public class DemoUtil {
 		return popup;
 	}
 
-	public static GooseComponent generaGooseSelectStatica() {
+	public static GooseComponent generaGooseSelectStatica(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseSelectStatica");
-		componente.setLabel("Esempio Select Statica");
+		componente.setId(id);
+		componente.setLabel("Esempio Select Statica - " + id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseSelect select = new GooseSelect();
@@ -135,19 +135,19 @@ public class DemoUtil {
 		componente.setSetting(select);
 		componente.setTooltip(generaGooseTooltip());
 		componente.setType(GooseComponentEnum.GOOSE_SELECT.getValue());
-		componente.setWidthXl("6");
-		componente.setWidthLg("3");
-		componente.setWidthMd("4");
-		componente.setWidthSm("6");
+		componente.setWidthXl("12");
+		componente.setWidthLg("12");
+		componente.setWidthMd("12");
+		componente.setWidthSm("12");
 		componente.setWidth("12");
 		componente.setRequiredMark(true);
 		return componente;
 	}
 
-	public static GooseComponent generaGooseSelectDinamica() {
+	public static GooseComponent generaGooseSelectDinamica(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseSelectDinamica");
-		componente.setLabel("Esempio Select Dinamica");
+		componente.setId(id);
+		componente.setLabel("Esempio Select Dinamica - " + id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseSelect select = new GooseSelect();
@@ -176,9 +176,9 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseSelectDinamicaDue() {
+	public static GooseComponent generaGooseSelectDinamicaDue(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseSelectDinamica");
+		componente.setId(id);
 		componente.setLabel("Esempio Select Dinamica");
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
@@ -208,16 +208,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseLinkedSelectPadre() {
+	public static GooseComponent generaGooseLinkedSelectPadre(String idPadre, String idFiglio) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseLinkedSelectPadre");
-		componente.setLabel("Linked Select Padre");
+		componente.setId(idPadre);
+		componente.setLabel("Linked Select Padre - " + idPadre);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseLinkedSelect select = new GooseLinkedSelect();
 		select.setSize(1L);
 		select.setIdLinkedSelectPadre(null);
-		select.setIdLinkedSelectFiglia("gooseLinkedSelectFiglia");
+		select.setIdLinkedSelectFiglia(idFiglio);
 		GooseHttpRequest http = new GooseHttpRequest();
 		http.setUrl("http://localhost:8080/gooseform/opzioni");
 		List<GooseKeyValue> listaHeader = new ArrayList<>();
@@ -241,15 +241,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseLinkedSelectFiglia() {
+	public static GooseComponent generaGooseLinkedSelectFiglia(String idFiglio, String idPadre) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseLinkedSelectFiglia");
-		componente.setLabel("Linked Select Figlia");
+		componente.setId(idFiglio);
+		componente.setLabel("Linked Select Figlia - " + idFiglio);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseLinkedSelect select = new GooseLinkedSelect();
 		select.setSize(1L);
-		select.setIdLinkedSelectPadre("gooseLinkedSelectPadre");
+		select.setIdLinkedSelectPadre(idPadre);
 		select.setIdLinkedSelectFiglia(null);
 		GooseHttpRequest http = new GooseHttpRequest();
 		http.setUrl("http://localhost:8080/gooseform/linked");
@@ -274,17 +274,17 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseDataListStatica() {
+	public static GooseComponent generaGooseDataListStatica(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseDataListStatica");
-		componente.setLabel("Esempio Data List Statica");
+		componente.setId(id);
+		componente.setLabel("Esempio Data List Statica - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseDataList dataList = new GooseDataList();
 		dataList.setAutofocus(true);
 		dataList.setDisabled(false);
 		dataList.setPlaceholder("Scegli valore");
-		dataList.setName("gooseDataListStatica");
+		dataList.setName(id);
 		dataList.setReadonly(false);
 		List<GooseKeyValue> valori = new ArrayList<>();
 		valori.add(new GooseKeyValue("unoStatico", "Uno Statico"));
@@ -305,10 +305,9 @@ public class DemoUtil {
 		return componente;
 	}
 
-
-	public static GooseComponent generaGooseDataListDinamica() {
+	public static GooseComponent generaGooseDataListDinamica(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseDataListDinamica");
+		componente.setId(id);
 		componente.setLabel("Esempio Data List Dinamica");
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
@@ -316,7 +315,7 @@ public class DemoUtil {
 		dataList.setAutofocus(true);
 		dataList.setDisabled(false);
 		dataList.setPlaceholder("Scegli valore");
-		dataList.setName("gooseDataListDinamica");
+		dataList.setName(id);
 		dataList.setReadonly(false);
 
 		GooseHttpRequest http = new GooseHttpRequest();
@@ -342,16 +341,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseTextField() {
+	public static GooseComponent generaGooseTextField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseTextField");
-		componente.setLabel("Esempio Text Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Text Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseTextField text = new GooseTextField();
 		text.setAutofocus(false);
 		text.setDisabled(false);
-		text.setName("gooseTextField");
+		text.setName(id);
 		text.setPlaceholder("Inserisci un testo...");
 		text.setReadonly(false);
 		componente.setSetting(text);
@@ -366,16 +365,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGoosePasswordField() {
+	public static GooseComponent generaGoosePasswordField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("goosePasswordField");
-		componente.setLabel("Esempio Password Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Password Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GoosePasswordField text = new GoosePasswordField();
 		text.setAutofocus(false);
 		text.setDisabled(false);
-		text.setName("goosePasswordField");
+		text.setName(id);
 		text.setPlaceholder("Inserisci una password...");
 		text.setReadonly(false);
 		componente.setSetting(text);
@@ -390,16 +389,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseNumberField() {
+	public static GooseComponent generaGooseNumberField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseNumberField");
-		componente.setLabel("Esempio Number Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Number Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseNumberField numb = new GooseNumberField();
 		numb.setAutofocus(false);
 		numb.setDisabled(false);
-		numb.setName("gooseNumberField");
+		numb.setName(id);
 		numb.setPlaceholder("Inserisci un numero...");
 		numb.setReadonly(false);
 		numb.setSteps(2L);
@@ -415,9 +414,9 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseRadioStatica() {
+	public static GooseComponent generaGooseRadioStatica(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseRadioStatica");
+		componente.setId(id);
 		componente.setLabel("Esempio Radio Statici");
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
@@ -443,9 +442,9 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseRadioDinamica() {
+	public static GooseComponent generaGooseRadioDinamica(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseRadioDinamica");
+		componente.setId(id);
 		componente.setLabel("Esempio Radio Dinamici");
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
@@ -497,16 +496,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseEmailField() {
+	public static GooseComponent generaGooseEmailField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseEmailField");
-		componente.setLabel("Esempio Mail Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Mail Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseEmailField text = new GooseEmailField();
 		text.setAutofocus(false);
 		text.setDisabled(false);
-		text.setName("gooseEmailField");
+		text.setName(id);
 		text.setPlaceholder("Inserisci un indirizzo email...");
 		text.setReadonly(false);
 		componente.setSetting(text);
@@ -521,15 +520,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseDateField() {
+	public static GooseComponent generaGooseDateField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseDateField");
-		componente.setLabel("Esempio Date Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Date Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseDateField text = new GooseDateField();
 		text.setDisabled(false);
-		text.setName("gooseDateField");
+		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
@@ -543,15 +542,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseDateTimeField() {
+	public static GooseComponent generaGooseDateTimeField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseDateTimeField");
-		componente.setLabel("Esempio Date Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Date Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseDateTimeField text = new GooseDateTimeField();
 		text.setDisabled(false);
-		text.setName("gooseDateTimeField");
+		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
@@ -565,15 +564,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseMounthField() {
+	public static GooseComponent generaGooseMounthField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseMounthField");
-		componente.setLabel("Esempio Mounth Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Mounth Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseMounthField text = new GooseMounthField();
 		text.setDisabled(false);
-		text.setName("gooseMounthField");
+		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
@@ -587,15 +586,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseWeekField() {
+	public static GooseComponent generaGooseWeekField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseWeekField");
-		componente.setLabel("Esempio Week Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Week Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseWeekField text = new GooseWeekField();
 		text.setDisabled(false);
-		text.setName("gooseWeekField");
+		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
@@ -609,15 +608,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseTimeField() {
+	public static GooseComponent generaGooseTimeField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseTimeField");
-		componente.setLabel("Esempio Time Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Time Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseTimeField text = new GooseTimeField();
 		text.setDisabled(false);
-		text.setName("gooseTimeField");
+		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
@@ -631,16 +630,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseTelField() {
+	public static GooseComponent generaGooseTelField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseTelField");
-		componente.setLabel("Esempio Tel Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Tel Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseTelField text = new GooseTelField();
 		text.setAutofocus(false);
 		text.setDisabled(false);
-		text.setName("gooseTelField");
+		text.setName(id);
 		text.setPlaceholder("Inserisci un numero di telefono...");
 		text.setReadonly(false);
 		componente.setSetting(text);
@@ -655,16 +654,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseUrlField() {
+	public static GooseComponent generaGooseUrlField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseUrlField");
-		componente.setLabel("Esempio Url Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Url Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseUrlField text = new GooseUrlField();
 		text.setAutofocus(false);
 		text.setDisabled(false);
-		text.setName("gooseTelField");
+		text.setName(id);
 		text.setPlaceholder("Inserisci un indirizzo url...");
 		text.setReadonly(false);
 		componente.setSetting(text);
@@ -679,15 +678,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseColorField() {
+	public static GooseComponent generaGooseColorField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseColorField");
+		componente.setId(id);
 		componente.setLabel("Esempio Color Field");
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseColorField text = new GooseColorField();
 		text.setDisabled(false);
-		text.setName("gooseColoField");
+		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
@@ -701,15 +700,15 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseRangeField() {
+	public static GooseComponent generaGooseRangeField(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseRaneField");
-		componente.setLabel("Esempio Range Field");
+		componente.setId(id);
+		componente.setLabel("Esempio Range Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseRangeField text = new GooseRangeField();
 		text.setDisabled(false);
-		text.setName("gooseRaneField");
+		text.setName(id);
 		text.setReadonly(false);
 		text.setMin("-20");
 		text.setMax("20");
