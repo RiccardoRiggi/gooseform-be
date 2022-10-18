@@ -59,6 +59,7 @@ public class RootController {
 		listaValori.add(new GooseKeyValue("treDinamico", "Tre Dinamico"));
 		listaValori.add(new GooseKeyValue("quattroDinamico", "Quattro Dinamico"));
 		listaValori.add(new GooseKeyValue("cinqueDinamico", "Cinque Dinamico"));
+		listaValori.add(new GooseKeyValue("goose", "Goose Dinamico"));
 		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
 	}
 
@@ -79,6 +80,7 @@ public class RootController {
 		listaValori.add(new GooseChiaveValore("treDinamico", "Tre Dinamico DUE"));
 		listaValori.add(new GooseChiaveValore("quattroDinamico", "Quattro Dinamico DUE"));
 		listaValori.add(new GooseChiaveValore("cinqueDinamico", "Cinque Dinamico DUE"));
+		listaValori.add(new GooseChiaveValore("goose", "Goose Dinamico"));
 		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
 	}
 
@@ -99,6 +101,7 @@ public class RootController {
 		listaValori.add(new GooseChiaveValore("treLinked", "Tre LINKED "+id));
 		listaValori.add(new GooseChiaveValore("quattroLinked", "Quattro LINKED "+id));
 		listaValori.add(new GooseChiaveValore("cinqueLinked", "Cinque LINKED "+id));
+		listaValori.add(new GooseChiaveValore("goose", "Goose Dinamico"));
 		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
 	}
 

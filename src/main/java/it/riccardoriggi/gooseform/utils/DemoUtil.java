@@ -41,16 +41,23 @@ public class DemoUtil {
 		form.setIcon("fas fa-feather-alt");
 		form.setOriginUrl(generaUrlOrigine());
 		form.setPopup(generaGoosePopup());
-		form.setResetButton(generaGooseButton());
-		form.setSendButton(generaGooseButton());
+		form.setResetButton(generaResetButton());
+		form.setSendButton(generaSendButton());
 		form.setTitle("Titolo del form");
 		return form;
 	}
 
-	private static GooseButton generaGooseButton() {
+	private static GooseButton generaSendButton() {
 		GooseButton button = new GooseButton();
 		button.setIcon("fas fa-feather-alt");
-		button.setTitle("Titolo pulsante");
+		button.setTitle("Invia");
+		return button;
+	}
+
+	private static GooseButton generaResetButton() {
+		GooseButton button = new GooseButton();
+		button.setIcon("fas fa-feather-alt");
+		button.setTitle("Reset");
 		return button;
 	}
 
