@@ -24,6 +24,6 @@ public class GooseForm {
 	private GooseHttpRequest originUrl;
 	private List<GooseComponent> components= new ArrayList<>();
 	private List<GooseControl> controls = new ArrayList<>();
-	//INSERIRE LISTA PER RENDER CONDIZIONALI
+	private List<GooseRender> renders = new ArrayList<>();
 
 }
