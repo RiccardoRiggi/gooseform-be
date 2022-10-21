@@ -126,11 +126,12 @@ public class DemoUtil {
 		GooseSelect select = new GooseSelect();
 		select.setSize(1L);
 		List<GooseKeyValue> valori = new ArrayList<>();
-		valori.add(new GooseKeyValue("unoStatico", "Uno Statico"));
-		valori.add(new GooseKeyValue("dueStatico", "Due Statico"));
-		valori.add(new GooseKeyValue("treStatico", "Tre Statico"));
-		valori.add(new GooseKeyValue("quattroStatico", "Quattro Statico"));
-		valori.add(new GooseKeyValue("cinqueStatico", "Cinque Statico"));
+		valori.add(new GooseKeyValue("", "Scegli..."));
+		valori.add(new GooseKeyValue("GOOSE", "GOOSE"));
+		valori.add(new GooseKeyValue("PAPERA", "PAPERA"));
+		valori.add(new GooseKeyValue("ANATRA", "ANATRA"));
+		valori.add(new GooseKeyValue("OCA", "OCA"));
+		valori.add(new GooseKeyValue("PAPERELLA", "PAPERELLA"));
 		select.setValues(valori);
 		componente.setSetting(select);
 		componente.setTooltip(generaGooseTooltip());

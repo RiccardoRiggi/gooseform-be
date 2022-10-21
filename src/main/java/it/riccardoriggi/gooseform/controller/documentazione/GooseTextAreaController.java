@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 @RequestMapping(path = "/goose-text-area")
-public class TextAreaController {
+public class GooseTextAreaController {
 
 
 	@GetMapping("/standard/required")
@@ -283,6 +283,110 @@ public class TextAreaController {
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_MAX_X("a","b","5"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/HIDE_C_IF_A_EQUAL_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderHIDE_C_IF_A_EQUAL_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_EQUAL_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/DISABLE_C_IF_A_EQUAL_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderDISABLE_C_IF_A_EQUAL_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_EQUAL_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/HIDE_C_IF_A_NOT_EQUAL_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderHIDE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_NOT_EQUAL_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/DISABLE_C_IF_A_NOT_EQUAL_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderDISABLE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_NOT_EQUAL_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/HIDE_C_IF_A_MIN_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderHIDE_C_IF_A_MIN_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_MIN_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/DISABLE_C_IF_A_MIN_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderDISABLE_C_IF_A_MIN_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_MIN_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/HIDE_C_IF_A_MAX_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderHIDE_C_IF_A_MAX_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_MAX_B("a","b","c"));
+		return new ResponseEntity<Object>(form,HttpStatus.OK);
+	}
+
+	@GetMapping("/complexRender/DISABLE_C_IF_A_MAX_B")
+	public ResponseEntity<Object> getGooseTextAreaComplexRenderDISABLE_C_IF_A_MAX_B(HttpServletRequest request){
+		GooseForm form = DemoUtil.generaGooseForm();
+		List<GooseComponent> componenti = form.getComponents();
+		componenti.add(DemoUtil.generaGooseTextArea("a"));
+		componenti.add(DemoUtil.generaGooseTextArea("b"));
+		componenti.add(DemoUtil.generaGooseTextArea("c"));
+		form.setComponents(componenti);
+		List<GooseRender> listaRender = form.getRenders();
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_MAX_B("a","b","c"));
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
 
