@@ -25,269 +25,235 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(path = "/goose-date-field")
 public class GooseDateFieldController {
 
-
 	@GetMapping("/standard/required")
-	public ResponseEntity<Object> getgooseDateFieldStandardRequired(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardRequired(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		listaControlli.add(DemoControlliUtil.getStandardRequired("gooseDateField"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/equal")
-	public ResponseEntity<Object> getgooseDateFieldStandardEqual(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardEqual("gooseDateField","PAPERA"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getStandardEqual("gooseDateField", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/not-equal")
-	public ResponseEntity<Object> getgooseDateFieldStandardNotEqual(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardNotEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardNotEqual("gooseDateField","PAPERA"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
-	}
-
-	@GetMapping("/standard/pattern")
-	public ResponseEntity<Object> getgooseDateFieldStandardPattern(HttpServletRequest request){
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
-		form.setComponents(componenti);
-		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardPattern("gooseDateField"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getStandardNotEqual("gooseDateField", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/in")
-	public ResponseEntity<Object> getgooseDateFieldStandardIn(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardIn(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		List<String> lista = new ArrayList<>();
-		lista.add("GOOSE");
-		lista.add("PAPERA");
-		listaControlli.add(DemoControlliUtil.getStandardIn("gooseDateField",lista));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		lista.add("2022-10-22");
+		lista.add("2022-10-24");
+		listaControlli.add(DemoControlliUtil.getStandardIn("gooseDateField", lista));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/not-in")
-	public ResponseEntity<Object> getgooseDateFieldStandardNotIn(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardNotIn(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		List<String> lista = new ArrayList<>();
-		lista.add("PAPERA");
-		lista.add("PAPERELLA");
-		listaControlli.add(DemoControlliUtil.getStandardNotIn("gooseDateField",lista ));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
-	}
-
-	@GetMapping("/standard/min-text")
-	public ResponseEntity<Object> getgooseDateFieldStandardMinText(HttpServletRequest request){
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
-		form.setComponents(componenti);
-		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardMinText("gooseDateField","6"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
-	}
-
-	@GetMapping("/standard/max-text")
-	public ResponseEntity<Object> getgooseDateFieldStandardMaxText(HttpServletRequest request){
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
-		form.setComponents(componenti);
-		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardMaxText("gooseDateField","5"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		lista.add("2022-10-22");
+		lista.add("2022-10-24");
+		listaControlli.add(DemoControlliUtil.getStandardNotIn("gooseDateField", lista));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/min")
-	public ResponseEntity<Object> getgooseDateFieldStandardMin(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardMin(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardMin("gooseDateField","8"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getStandardMin("gooseDateField", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/max")
-	public ResponseEntity<Object> getgooseDateFieldStandardMax(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldStandardMax(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("gooseDateField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardMax("gooseDateField","10"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getStandardMax("gooseDateField", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complex/equal")
-	public ResponseEntity<Object> getgooseDateFieldComplexEqual(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getComplexEqual("a","b"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getComplexEqual("a", "b"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complex/not-equal")
-	public ResponseEntity<Object> getgooseDateFieldComplexNotEqual(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexNotEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getComplexNotEqual("a","b"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getComplexNotEqual("a", "b"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complex/min")
-	public ResponseEntity<Object> getgooseDateFieldComplexMin(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexMin(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getComplexMin("a","b"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getComplexMin("a", "b"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complex/max")
-	public ResponseEntity<Object> getgooseDateFieldComplexMax(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexMax(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getComplexMax("a","b"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaControlli.add(DemoControlliUtil.getComplexMax("a", "b"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/HIDE_B_IF_A_EQUAL_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_EQUAL_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_EQUAL_X("a","b","GOOSE"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_EQUAL_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/DISABLE_B_IF_A_EQUAL_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_EQUAL_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_EQUAL_X("a","b","GOOSE"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_EQUAL_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/HIDE_B_IF_A_NOT_EQUAL_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_NOT_EQUAL_X("a","b","GOOSE"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_NOT_EQUAL_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/DISABLE_B_IF_A_NOT_EQUAL_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_NOT_EQUAL_X("a","b","GOOSE"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_NOT_EQUAL_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/HIDE_B_IF_A_MIN_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_MIN_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_MIN_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_MIN_X("a","b","5"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_MIN_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/DISABLE_B_IF_A_MIN_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_MIN_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_MIN_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_MIN_X("a","b","5"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_MIN_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/HIDE_B_IF_A_MAX_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_MAX_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderHIDE_B_IF_A_MAX_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_MAX_X("a","b","5"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_MAX_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/simpleRender/DISABLE_B_IF_A_MAX_X")
-	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_MAX_X(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldSimpleRenderDISABLE_B_IF_A_MAX_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
 		componenti.add(DemoUtil.generaGooseDateField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_MAX_X("a","b","5"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_MAX_X("a", "b", "2022-10-22"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/HIDE_C_IF_A_EQUAL_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_EQUAL_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -295,12 +261,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_EQUAL_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_EQUAL_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/DISABLE_C_IF_A_EQUAL_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_EQUAL_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -308,12 +274,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_EQUAL_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_EQUAL_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/HIDE_C_IF_A_NOT_EQUAL_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -321,12 +287,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_NOT_EQUAL_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_NOT_EQUAL_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/DISABLE_C_IF_A_NOT_EQUAL_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -334,12 +300,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_NOT_EQUAL_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_NOT_EQUAL_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/HIDE_C_IF_A_MIN_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_MIN_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_MIN_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -347,12 +313,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_MIN_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_MIN_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/DISABLE_C_IF_A_MIN_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_MIN_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_MIN_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -360,12 +326,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_MIN_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_MIN_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/HIDE_C_IF_A_MAX_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_MAX_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderHIDE_C_IF_A_MAX_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -373,12 +339,12 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_MAX_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_MAX_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complexRender/DISABLE_C_IF_A_MAX_B")
-	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_MAX_B(HttpServletRequest request){
+	public ResponseEntity<Object> getgooseDateFieldComplexRenderDISABLE_C_IF_A_MAX_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
 		componenti.add(DemoUtil.generaGooseDateField("a"));
@@ -386,8 +352,8 @@ public class GooseDateFieldController {
 		componenti.add(DemoUtil.generaGooseDateField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_MAX_B("a","b","c"));
-		return new ResponseEntity<Object>(form,HttpStatus.OK);
+		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_MAX_B("a", "b", "c"));
+		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 }

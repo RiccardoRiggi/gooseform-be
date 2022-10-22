@@ -22,109 +22,76 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-password-field")
-public class GoosePasswordFieldController {
+@RequestMapping(path = "/goose-color-field")
+public class GooseColorFieldController {
 
 	@GetMapping("/standard/required")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardRequired(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldStandardRequired(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
+		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardRequired("goosePasswordField"));
+		listaControlli.add(DemoControlliUtil.getStandardRequired("gooseColorField"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/equal")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardEqual(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldStandardEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
+		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardEqual("goosePasswordField", "PAPERA"));
+		listaControlli.add(DemoControlliUtil.getStandardEqual("gooseColorField", "PAPERA"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/not-equal")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardNotEqual(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldStandardNotEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
+		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardNotEqual("goosePasswordField", "PAPERA"));
-		return new ResponseEntity<Object>(form, HttpStatus.OK);
-	}
-
-	@GetMapping("/standard/pattern")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardPattern(HttpServletRequest request) {
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
-		form.setComponents(componenti);
-		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardPattern("goosePasswordField"));
+		listaControlli.add(DemoControlliUtil.getStandardNotEqual("gooseColorField", "PAPERA"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/in")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardIn(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldStandardIn(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
+		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		List<String> lista = new ArrayList<>();
 		lista.add("GOOSE");
 		lista.add("PAPERA");
-		listaControlli.add(DemoControlliUtil.getStandardIn("goosePasswordField", lista));
+		listaControlli.add(DemoControlliUtil.getStandardIn("gooseColorField", lista));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/standard/not-in")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardNotIn(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldStandardNotIn(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
+		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		List<String> lista = new ArrayList<>();
 		lista.add("PAPERA");
 		lista.add("PAPERELLA");
-		listaControlli.add(DemoControlliUtil.getStandardNotIn("goosePasswordField", lista));
-		return new ResponseEntity<Object>(form, HttpStatus.OK);
-	}
-
-	@GetMapping("/standard/min-text")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardMinText(HttpServletRequest request) {
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
-		form.setComponents(componenti);
-		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardMinText("goosePasswordField", "6"));
-		return new ResponseEntity<Object>(form, HttpStatus.OK);
-	}
-
-	@GetMapping("/standard/max-text")
-	public ResponseEntity<Object> getgoosePasswordFieldStandardMaxText(HttpServletRequest request) {
-		GooseForm form = DemoUtil.generaGooseForm();
-		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("goosePasswordField"));
-		form.setComponents(componenti);
-		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardMaxText("goosePasswordField", "5"));
+		listaControlli.add(DemoControlliUtil.getStandardNotIn("gooseColorField", lista));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
 	@GetMapping("/complex/equal")
-	public ResponseEntity<Object> getgoosePasswordFieldComplexEqual(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldComplexEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		listaControlli.add(DemoControlliUtil.getComplexEqual("a", "b"));
@@ -132,11 +99,11 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/complex/not-equal")
-	public ResponseEntity<Object> getgoosePasswordFieldComplexNotEqual(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldComplexNotEqual(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		listaControlli.add(DemoControlliUtil.getComplexNotEqual("a", "b"));
@@ -144,11 +111,11 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/simpleRender/HIDE_B_IF_A_EQUAL_X")
-	public ResponseEntity<Object> getgoosePasswordFieldSimpleRenderHIDE_B_IF_A_EQUAL_X(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldSimpleRenderHIDE_B_IF_A_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_EQUAL_X("a", "b", "GOOSE"));
@@ -156,11 +123,11 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/simpleRender/DISABLE_B_IF_A_EQUAL_X")
-	public ResponseEntity<Object> getgoosePasswordFieldSimpleRenderDISABLE_B_IF_A_EQUAL_X(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldSimpleRenderDISABLE_B_IF_A_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_EQUAL_X("a", "b", "GOOSE"));
@@ -168,11 +135,11 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/simpleRender/HIDE_B_IF_A_NOT_EQUAL_X")
-	public ResponseEntity<Object> getgoosePasswordFieldSimpleRenderHIDE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldSimpleRenderHIDE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_NOT_EQUAL_X("a", "b", "GOOSE"));
@@ -180,12 +147,11 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/simpleRender/DISABLE_B_IF_A_NOT_EQUAL_X")
-	public ResponseEntity<Object> getgoosePasswordFieldSimpleRenderDISABLE_B_IF_A_NOT_EQUAL_X(
-			HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldSimpleRenderDISABLE_B_IF_A_NOT_EQUAL_X(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_NOT_EQUAL_X("a", "b", "GOOSE"));
@@ -193,12 +159,12 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/complexRender/HIDE_C_IF_A_EQUAL_B")
-	public ResponseEntity<Object> getgoosePasswordFieldComplexRenderHIDE_C_IF_A_EQUAL_B(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldComplexRenderHIDE_C_IF_A_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
-		componenti.add(DemoUtil.generaGoosePasswordField("c"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_EQUAL_B("a", "b", "c"));
@@ -206,12 +172,12 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/complexRender/DISABLE_C_IF_A_EQUAL_B")
-	public ResponseEntity<Object> getgoosePasswordFieldComplexRenderDISABLE_C_IF_A_EQUAL_B(HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldComplexRenderDISABLE_C_IF_A_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
-		componenti.add(DemoUtil.generaGoosePasswordField("c"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_EQUAL_B("a", "b", "c"));
@@ -219,13 +185,12 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/complexRender/HIDE_C_IF_A_NOT_EQUAL_B")
-	public ResponseEntity<Object> getgoosePasswordFieldComplexRenderHIDE_C_IF_A_NOT_EQUAL_B(
-			HttpServletRequest request) {
+	public ResponseEntity<Object> getgooseColorFieldComplexRenderHIDE_C_IF_A_NOT_EQUAL_B(HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
-		componenti.add(DemoUtil.generaGoosePasswordField("c"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getHIDE_C_IF_A_NOT_EQUAL_B("a", "b", "c"));
@@ -233,13 +198,13 @@ public class GoosePasswordFieldController {
 	}
 
 	@GetMapping("/complexRender/DISABLE_C_IF_A_NOT_EQUAL_B")
-	public ResponseEntity<Object> getgoosePasswordFieldComplexRenderDISABLE_C_IF_A_NOT_EQUAL_B(
+	public ResponseEntity<Object> getgooseColorFieldComplexRenderDISABLE_C_IF_A_NOT_EQUAL_B(
 			HttpServletRequest request) {
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGoosePasswordField("a"));
-		componenti.add(DemoUtil.generaGoosePasswordField("b"));
-		componenti.add(DemoUtil.generaGoosePasswordField("c"));
+		componenti.add(DemoUtil.generaGooseColorField("a"));
+		componenti.add(DemoUtil.generaGooseColorField("b"));
+		componenti.add(DemoUtil.generaGooseColorField("c"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
 		listaRender.add(DemoRenderUtil.getDISABLE_C_IF_A_NOT_EQUAL_B("a", "b", "c"));
