@@ -475,16 +475,16 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseCheckbox() {
+	public static GooseComponent generaGooseCheckbox(String id) {
 		GooseComponent componente = new GooseComponent();
-		componente.setId("gooseCheckbox");
-		componente.setLabel("Esempio Checkbox");
+		componente.setId(id);
+		componente.setLabel("Esempio Checkbox - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
 		GooseCheckbox check = new GooseCheckbox();
 		check.setDisabled(false);
 		check.setReadonly(false);
-		check.setName("gooseCheckbox");
+		check.setName(id);
 		componente.setSetting(check);
 		componente.setTooltip(generaGooseTooltip());
 		componente.setType(GooseComponentEnum.GOOSE_CHECKBOX.getValue());

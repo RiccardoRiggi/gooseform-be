@@ -135,7 +135,7 @@ public class ComponentiController {
 	public ResponseEntity<Object> getGooseCheckbox(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseCheckbox());
+		componenti.add(DemoUtil.generaGooseCheckbox("gooseCheckBox"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
