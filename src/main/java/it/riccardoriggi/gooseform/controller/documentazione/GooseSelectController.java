@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-select")
+@RequestMapping(path = "/documentazione/goose-select")
 public class GooseSelectController {
 
 	@GetMapping("/standard/required")

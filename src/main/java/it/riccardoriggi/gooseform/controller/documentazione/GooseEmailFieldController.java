@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-email-field")
+@RequestMapping(path = "/documentazione/goose-email-field")
 public class GooseEmailFieldController {
 
 	@GetMapping("/standard/required")

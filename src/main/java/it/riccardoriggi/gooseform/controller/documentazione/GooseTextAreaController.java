@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-text-area")
+@RequestMapping(path = "/documentazione/goose-text-area")
 public class GooseTextAreaController {
 
 

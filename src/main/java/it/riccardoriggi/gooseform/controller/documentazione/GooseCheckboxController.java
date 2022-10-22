@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-checkbox")
+@RequestMapping(path = "/documentazione/goose-checkbox")
 public class GooseCheckboxController {
 
 	@GetMapping("/standard/required")

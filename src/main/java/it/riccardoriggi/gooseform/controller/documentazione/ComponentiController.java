@@ -1,4 +1,4 @@
-package it.riccardoriggi.gooseform.controller;
+package it.riccardoriggi.gooseform.controller.documentazione;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/componenti")
+@RequestMapping(path = "/documentazione/componenti")
 public class ComponentiController {
 
 

@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-data-list")
+@RequestMapping(path = "/documentazione/goose-data-list")
 public class GooseDataListController {
 
 	@GetMapping("/standard/required")

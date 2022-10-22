@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-date-time-field")
+@RequestMapping(path = "/documentazione/goose-date-time-field")
 public class GooseDateTimeFieldController {
 
 	@GetMapping("/standard/required")

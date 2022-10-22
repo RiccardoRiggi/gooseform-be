@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-color-field")
+@RequestMapping(path = "/documentazione/goose-color-field")
 public class GooseColorFieldController {
 
 	@GetMapping("/standard/required")

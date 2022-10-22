@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-range-field")
+@RequestMapping(path = "/documentazione/goose-range-field")
 public class GooseRangeFieldController {
 
 

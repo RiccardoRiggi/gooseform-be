@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/goose-linked-select")
+@RequestMapping(path = "/documentazione/goose-linked-select")
 public class GooseLinkedSelectController {
 
 	@GetMapping("/standard/required")
