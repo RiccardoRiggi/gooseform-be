@@ -15,7 +15,7 @@ import it.riccardoriggi.gooseform.entity.GooseForm;
 import it.riccardoriggi.gooseform.entity.GooseHttpRequest;
 import it.riccardoriggi.gooseform.entity.GooseKeyValue;
 import it.riccardoriggi.gooseform.entity.GooseLinkedSelect;
-import it.riccardoriggi.gooseform.entity.GooseMounthField;
+import it.riccardoriggi.gooseform.entity.GooseMonthField;
 import it.riccardoriggi.gooseform.entity.GooseNumberField;
 import it.riccardoriggi.gooseform.entity.GoosePasswordField;
 import it.riccardoriggi.gooseform.entity.GoosePopup;
@@ -632,19 +632,19 @@ public class DemoUtil {
 		return componente;
 	}
 
-	public static GooseComponent generaGooseMounthField(String id) {
+	public static GooseComponent generaGooseMonthField(String id) {
 		GooseComponent componente = new GooseComponent();
 		componente.setId(id);
-		componente.setLabel("Esempio Mounth Field - "+id);
+		componente.setLabel("Esempio Month Field - "+id);
 		componente.setPopup(generaGoosePopup());
 		componente.setFormId("idForm");
-		GooseMounthField text = new GooseMounthField();
+		GooseMonthField text = new GooseMonthField();
 		text.setDisabled(false);
 		text.setName(id);
 		text.setReadonly(false);
 		componente.setSetting(text);
 		componente.setTooltip(generaGooseTooltip());
-		componente.setType(GooseComponentEnum.GOOSE_MOUNTH_FIELD.getValue());
+		componente.setType(GooseComponentEnum.GOOSE_MONTH_FIELD.getValue());
 		componente.setWidthXl("12");
 		componente.setWidthLg("12");
 		componente.setWidthMd("12");

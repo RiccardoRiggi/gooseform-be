@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class GooseMounthField {
+public class GooseMonthField {
 
 	private String name;
     private boolean disabled;

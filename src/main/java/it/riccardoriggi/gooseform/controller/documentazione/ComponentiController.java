@@ -167,11 +167,11 @@ public class ComponentiController {
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}
 
-	@GetMapping("/goose-mounth-field")
-	public ResponseEntity<Object> getGooseMounthField(HttpServletRequest request){
+	@GetMapping("/goose-month-field")
+	public ResponseEntity<Object> getGooseMonthField(HttpServletRequest request){
 		GooseForm form = DemoUtil.generaGooseForm();
 		List<GooseComponent> componenti = form.getComponents();
-		componenti.add(DemoUtil.generaGooseMounthField("gooseMounthField"));
+		componenti.add(DemoUtil.generaGooseMonthField("gooseMonthField"));
 		form.setComponents(componenti);
 		return new ResponseEntity<Object>(form,HttpStatus.OK);
 	}

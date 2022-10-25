@@ -43,7 +43,7 @@ public class GooseColorFieldController {
 		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardEqual("gooseColorField", "PAPERA"));
+		listaControlli.add(DemoControlliUtil.getStandardEqual("gooseColorField", "#ff0000"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
@@ -54,7 +54,7 @@ public class GooseColorFieldController {
 		componenti.add(DemoUtil.generaGooseColorField("gooseColorField"));
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
-		listaControlli.add(DemoControlliUtil.getStandardNotEqual("gooseColorField", "PAPERA"));
+		listaControlli.add(DemoControlliUtil.getStandardNotEqual("gooseColorField", "#ff0000"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
@@ -66,8 +66,8 @@ public class GooseColorFieldController {
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		List<String> lista = new ArrayList<>();
-		lista.add("GOOSE");
-		lista.add("PAPERA");
+		lista.add("#ff0000");
+		lista.add("#00ff00");
 		listaControlli.add(DemoControlliUtil.getStandardIn("gooseColorField", lista));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
@@ -80,8 +80,8 @@ public class GooseColorFieldController {
 		form.setComponents(componenti);
 		List<GooseControl> listaControlli = form.getControls();
 		List<String> lista = new ArrayList<>();
-		lista.add("PAPERA");
-		lista.add("PAPERELLA");
+		lista.add("#ff0000");
+		lista.add("#00ff00");
 		listaControlli.add(DemoControlliUtil.getStandardNotIn("gooseColorField", lista));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
@@ -118,7 +118,7 @@ public class GooseColorFieldController {
 		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_EQUAL_X("a", "b", "GOOSE"));
+		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_EQUAL_X("a", "b", "#ff0000"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
@@ -130,7 +130,7 @@ public class GooseColorFieldController {
 		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_EQUAL_X("a", "b", "GOOSE"));
+		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_EQUAL_X("a", "b", "#ff0000"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
@@ -142,7 +142,7 @@ public class GooseColorFieldController {
 		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_NOT_EQUAL_X("a", "b", "GOOSE"));
+		listaRender.add(DemoRenderUtil.getHIDE_B_IF_A_NOT_EQUAL_X("a", "b", "#ff0000"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 
@@ -154,7 +154,7 @@ public class GooseColorFieldController {
 		componenti.add(DemoUtil.generaGooseColorField("b"));
 		form.setComponents(componenti);
 		List<GooseRender> listaRender = form.getRenders();
-		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_NOT_EQUAL_X("a", "b", "GOOSE"));
+		listaRender.add(DemoRenderUtil.getDISABLE_B_IF_A_NOT_EQUAL_X("a", "b", "#ff0000"));
 		return new ResponseEntity<Object>(form, HttpStatus.OK);
 	}
 

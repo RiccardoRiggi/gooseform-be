@@ -2,6 +2,7 @@ package it.riccardoriggi.gooseform.controller.documentazione;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.riccardoriggi.gooseform.entity.GooseChiaveValore;
 import it.riccardoriggi.gooseform.entity.GooseKeyValue;
+import it.riccardoriggi.gooseform.enums.GooseComponentEnum;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -33,6 +35,11 @@ public class RootController {
 		log.info(request.getPathInfo());
 
 		return new ResponseEntity<Object>("Goose Form",HttpStatus.OK);
+	}
+
+	@GetMapping("/gooseComponentEnum")
+	public ResponseEntity<Object> gooseComponentEnum(HttpServletRequest request){
+		return new ResponseEntity<Object>(Arrays.asList(GooseComponentEnum.values()),HttpStatus.OK);
 	}
 
 	@PostMapping("/opzioni")
