@@ -1,0 +1,2 @@
+2022-10-25 22:06:42,802 INFO o.s.b.StartupInfoLogger [main] Starting GooseformApplicationTests using Java 11 on GHIRO-NB with PID 8316 (started by ghiro in C:\sviluppo\java\workspace\goose-form-demo\gooseform-be)
+2022-10-25 22:06:42,806 INFO o.s.b.SpringApplication [main] The following 1 profile is active: "dev"
