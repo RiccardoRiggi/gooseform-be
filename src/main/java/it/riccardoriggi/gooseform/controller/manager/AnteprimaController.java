@@ -1,4 +1,4 @@
-package it.riccardoriggi.gooseform.controller.documentazione;
+package it.riccardoriggi.gooseform.controller.manager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/documentazione")
-public class RootController {
+@RequestMapping(path = "/manager/anteprima")
+public class AnteprimaController {
 
 	@Autowired
 	private ProvaMapper provaMapper;
