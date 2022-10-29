@@ -25,20 +25,54 @@ public class GooseFormService implements GooseFormInterface{
 			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ",e);
-			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.CREATED);
+			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
 
 	@Override
-	public ResponseEntity<Object> getForm(String formId) {
+	public ResponseEntity<Object> getFormById(String formId) {
 		try {
 			return new ResponseEntity<Object>(formMapper.getFormById(formId),HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante la ricerca in GOOSE_FORM: ",e);
-			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.CREATED);
+			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
+
+	@Override
+	public ResponseEntity<Object> getListaForm() {
+		try {
+			return new ResponseEntity<Object>(formMapper.getForms(),HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Errore durante la ricerca in GOOSE_FORM: ",e);
+			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Override
+	public ResponseEntity<Object> modificaForm(GooseFormDb form, String formId) {
+		try {
+			formMapper.updateForm(form.getTitle(), form.getIcon(), form.getDescription(), formId);
+			return new ResponseEntity<Object>(HttpStatus.OK);
+		} catch (Exception e) {
+			log.error("Errore durante la ricerca in GOOSE_FORM: ",e);
+			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@Override
+	public ResponseEntity<Object> eliminaForm(String formId) {
+		try {
+			formMapper.deleteForm(formId);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			log.error("Errore durante la ricerca in GOOSE_FORM: ",e);
+			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 
 }

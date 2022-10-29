@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class GooseComponentDb {
 
-	private int pk;
 	private String formId;
 	private String id;
 	private String type;

@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class GooseButtonDb {
 
-	private int pk;
 	private String formId;
 	private String type;
 	private String title;

@@ -17,61 +17,57 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import it.riccardoriggi.gooseform.entity.db.GooseFormDb;
-import it.riccardoriggi.gooseform.services.GooseFormService;
+import it.riccardoriggi.gooseform.entity.db.GooseButtonDb;
+import it.riccardoriggi.gooseform.services.GooseButtonService;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/manager/form")
-public class FormController {
+@RequestMapping(path = "/manager/button")
+public class ButtonController {
 
 	@Autowired
-	private GooseFormService formService;
+	private GooseButtonService buttonService;
 
 
 	@PostMapping("/inserisci")
 	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
 
 		ObjectMapper mapper = new ObjectMapper();
-		GooseFormDb formInput = new GooseFormDb();
+		GooseButtonDb buttonInput = new GooseButtonDb();
 
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseFormDb.class);
-			return formService.inserisciForm(formInput);
+			buttonInput = mapper.readValue(request.getReader(), GooseButtonDb.class);
+			return buttonService.inserisciButton(buttonInput);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@GetMapping("/{formId}")
-	public ResponseEntity<Object> getFormById(HttpServletRequest request, @PathVariable("formId") String formId){
-		return formService.getFormById(formId);
+	//TIPO: RESET/SEND
+	@GetMapping("/{formId}/{type}")
+	public ResponseEntity<Object> getButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
+		return buttonService.getButton(formId,type);
 	}
 
-	@GetMapping("/")
-	public ResponseEntity<Object> getForms(HttpServletRequest request){
-		return formService.getListaForm();
-	}
-
-	@PutMapping("/modifica/{formId}")
-	public ResponseEntity<Object> modificaForm(HttpServletRequest request, @PathVariable("formId") String formId){
+	@PutMapping("/modifica/{formId}/{type}")
+	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
 		ObjectMapper mapper = new ObjectMapper();
-		GooseFormDb formInput = new GooseFormDb();
+		GooseButtonDb buttonInput= new GooseButtonDb();
 
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseFormDb.class);
-			return formService.modificaForm(formInput,formId);
+			buttonInput = mapper.readValue(request.getReader(), GooseButtonDb.class);
+			return buttonService.modificaButton(buttonInput,type,formId);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@DeleteMapping("/elimina/{formId}")
-	public ResponseEntity<Object> eliminaFormByPk(HttpServletRequest request, @PathVariable("formId") String formId){
-		return formService.eliminaForm(formId);
+	@DeleteMapping("/elimina/{formId}/{type}")
+	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
+		return buttonService.eliminaButton(formId,type);
 	}
 
 }

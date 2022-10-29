@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import it.riccardoriggi.gooseform.entity.GooseChiaveValore;
 import it.riccardoriggi.gooseform.entity.GooseKeyValue;
 import it.riccardoriggi.gooseform.enums.GooseComponentEnum;
-import it.riccardoriggi.gooseform.mapper.ProvaMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -29,15 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(path = "/documentazione")
 public class RootController {
 
-	@Autowired
-	private ProvaMapper provaMapper;
-
 	@Value("${variabile}")
 	private String variabile;
 
 	@GetMapping("/")
 	public ResponseEntity<Object> rootPage(HttpServletRequest request){
-		return new ResponseEntity<Object>(provaMapper.prova(),HttpStatus.OK);
+		return new ResponseEntity<Object>("GOOSE",HttpStatus.OK);
 	}
 
 	@GetMapping("/gooseComponentEnum")

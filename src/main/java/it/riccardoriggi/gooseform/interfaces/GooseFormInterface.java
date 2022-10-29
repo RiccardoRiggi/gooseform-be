@@ -8,6 +8,14 @@ public interface GooseFormInterface {
 
 	ResponseEntity<Object> inserisciForm(GooseFormDb form);
 
-	ResponseEntity<Object> getForm(String formId);
+	ResponseEntity<Object> getFormById(String formId);
+
+	ResponseEntity<Object> getListaForm();
+
+	ResponseEntity<Object> modificaForm(GooseFormDb form, String formId);
+
+	ResponseEntity<Object> eliminaForm(String formId);
+
+
 
 }
