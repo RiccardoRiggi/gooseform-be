@@ -10,6 +10,7 @@ import lombok.Setter;
 public class GooseControlDb {
 
 	private int pk;
+	private String formId;
 	private String type;
 	private String typeSpecific;
 	private String idComponentA;
