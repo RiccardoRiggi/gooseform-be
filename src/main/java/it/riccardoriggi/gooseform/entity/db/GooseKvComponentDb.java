@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 public class GooseKvComponentDb {
 
-	private int pk;
+	private String formId;
+	private String componentId;
 	private String k;
 	private String v;
 

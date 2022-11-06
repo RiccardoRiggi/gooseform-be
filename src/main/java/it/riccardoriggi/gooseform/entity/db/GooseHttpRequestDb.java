@@ -12,10 +12,11 @@ public class GooseHttpRequestDb {
 	private int pk;
 	private String formId;
 	private String componentId;
-	private String icon;
-	private String textTooltip;
-	private String title;
-	private String description;
+	private String url;
+	private String method;
+	private String body;
+	private String typeSpecific;
+
 
 
 }

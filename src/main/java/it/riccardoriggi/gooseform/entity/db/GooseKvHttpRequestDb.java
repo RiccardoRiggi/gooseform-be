@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class GooseKvHttpRequestDb {
 
-	private int pk;
+	private int pkHttp;
 	private String k;
 	private String v;
 
