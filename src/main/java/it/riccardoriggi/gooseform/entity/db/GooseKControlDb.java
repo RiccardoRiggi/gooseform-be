@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 public class GooseKControlDb {
 
-	private int pk;
+	private int pkControl;
 	private String k;
-	private String v;
 
 }

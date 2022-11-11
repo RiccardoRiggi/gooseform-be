@@ -12,8 +12,9 @@ public class GoosePopupDb {
 	private int pk;
 	private String formId;
 	private String componentId;
-	private String url;
-	private String method;
-	private String body;
+	private String icon;
+	private String textTooltip;
+	private String title;
+	private String description;
 
 }
