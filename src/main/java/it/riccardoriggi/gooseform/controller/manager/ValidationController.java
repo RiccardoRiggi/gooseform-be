@@ -35,7 +35,7 @@ public class ValidationController {
 		return service.listaTipoControlliSpecificoDatoControllo(type);
 	}
 
-	@GetMapping("/componente/{type}/{k}")
+	@GetMapping("/control/{type}/{k}")
 	public ResponseEntity<Object> verificaTipoControllo(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("k") String k){
 		return service.verificaTipoControllo(type,k);
 	}
