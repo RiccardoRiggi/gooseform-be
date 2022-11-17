@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Nov 04, 2022 alle 06:36
+-- Creato il: Nov 17, 2022 alle 19:52
 -- Versione del server: 10.4.20-MariaDB
 -- Versione PHP: 8.0.9
 
@@ -34,6 +34,17 @@ CREATE TABLE `goose_button` (
   `type` varchar(255) NOT NULL COMMENT 'RESET/SEND',
   `title` varchar(255) NOT NULL,
   `icon` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `goose_cache`
+--
+
+CREATE TABLE `goose_cache` (
+  `formId` varchar(255) NOT NULL,
+  `content` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -111,7 +122,8 @@ CREATE TABLE `goose_http_request` (
   `componentId` varchar(255) NOT NULL,
   `url` varchar(512) NOT NULL,
   `method` varchar(25) NOT NULL,
-  `body` varchar(1024) NOT NULL
+  `body` varchar(1024) NOT NULL,
+  `typeSpecific` varchar(255) NOT NULL COMMENT 'SUBMIT-DATA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -121,7 +133,8 @@ CREATE TABLE `goose_http_request` (
 --
 
 CREATE TABLE `goose_kv_component` (
-  `id` varchar(255) NOT NULL,
+  `formId` varchar(255) NOT NULL,
+  `componentId` varchar(255) NOT NULL,
   `k` varchar(255) NOT NULL,
   `v` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -133,7 +146,7 @@ CREATE TABLE `goose_kv_component` (
 --
 
 CREATE TABLE `goose_kv_http_request` (
-  `pk` int(10) NOT NULL,
+  `pkHttp` int(10) NOT NULL,
   `k` varchar(255) NOT NULL,
   `v` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -145,7 +158,7 @@ CREATE TABLE `goose_kv_http_request` (
 --
 
 CREATE TABLE `goose_k_control` (
-  `pk` int(10) NOT NULL,
+  `pkControl` int(10) NOT NULL,
   `k` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -156,6 +169,7 @@ CREATE TABLE `goose_k_control` (
 --
 
 CREATE TABLE `goose_popup` (
+  `pk` int(10) NOT NULL,
   `formId` varchar(255) NOT NULL,
   `componentId` varchar(255) NOT NULL,
   `icon` varchar(255) NOT NULL,
@@ -171,6 +185,7 @@ CREATE TABLE `goose_popup` (
 --
 
 CREATE TABLE `goose_render` (
+  `pk` int(10) NOT NULL,
   `formId` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `typeSpecific` varchar(255) NOT NULL,
@@ -178,6 +193,42 @@ CREATE TABLE `goose_render` (
   `idComponentB` varchar(255) NOT NULL,
   `idComponentC` varchar(255) DEFAULT NULL,
   `value` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `t_component_specific`
+--
+
+CREATE TABLE `t_component_specific` (
+  `type` varchar(255) NOT NULL,
+  `k` varchar(255) NOT NULL,
+  `v` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `t_control`
+--
+
+CREATE TABLE `t_control` (
+  `type` varchar(255) NOT NULL,
+  `k` varchar(255) NOT NULL,
+  `description` varchar(1024) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `t_render`
+--
+
+CREATE TABLE `t_render` (
+  `type` varchar(255) NOT NULL,
+  `k` varchar(255) NOT NULL,
+  `description` varchar(1024) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -189,6 +240,12 @@ CREATE TABLE `goose_render` (
 --
 ALTER TABLE `goose_button`
   ADD PRIMARY KEY (`formId`,`type`);
+
+--
+-- Indici per le tabelle `goose_cache`
+--
+ALTER TABLE `goose_cache`
+  ADD PRIMARY KEY (`formId`);
 
 --
 -- Indici per le tabelle `goose_component`
@@ -221,16 +278,40 @@ ALTER TABLE `goose_http_request`
   ADD PRIMARY KEY (`pk`);
 
 --
+-- Indici per le tabelle `goose_kv_component`
+--
+ALTER TABLE `goose_kv_component`
+  ADD PRIMARY KEY (`formId`,`componentId`,`k`);
+
+--
 -- Indici per le tabelle `goose_popup`
 --
 ALTER TABLE `goose_popup`
-  ADD PRIMARY KEY (`formId`,`componentId`);
+  ADD PRIMARY KEY (`pk`);
 
 --
 -- Indici per le tabelle `goose_render`
 --
 ALTER TABLE `goose_render`
-  ADD PRIMARY KEY (`formId`);
+  ADD PRIMARY KEY (`pk`);
+
+--
+-- Indici per le tabelle `t_component_specific`
+--
+ALTER TABLE `t_component_specific`
+  ADD PRIMARY KEY (`type`,`k`);
+
+--
+-- Indici per le tabelle `t_control`
+--
+ALTER TABLE `t_control`
+  ADD PRIMARY KEY (`type`,`k`);
+
+--
+-- Indici per le tabelle `t_render`
+--
+ALTER TABLE `t_render`
+  ADD PRIMARY KEY (`type`,`k`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -246,6 +327,18 @@ ALTER TABLE `goose_control`
 -- AUTO_INCREMENT per la tabella `goose_http_request`
 --
 ALTER TABLE `goose_http_request`
+  MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `goose_popup`
+--
+ALTER TABLE `goose_popup`
+  MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `goose_render`
+--
+ALTER TABLE `goose_render`
   MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

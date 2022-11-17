@@ -40,4 +40,14 @@ public class ValidationController {
 		return service.verificaTipoControllo(type,k);
 	}
 
+	@GetMapping("/render/{type}")
+	public ResponseEntity<Object> listaTipoRenderSpecificoDatoRender(HttpServletRequest request, @PathVariable("type") String type){
+		return service.listaTipoRenderSpecificoDatoRender(type);
+	}
+
+	@GetMapping("/render/{type}/{k}")
+	public ResponseEntity<Object> verificaTipoRender(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("k") String k){
+		return service.verificaTipoRender(type,k);
+	}
+
 }
