@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Setter
 @Getter
-public class GooseError {
+public class GooseProblem {
 
 	private int status;
 	private String dettaglio;

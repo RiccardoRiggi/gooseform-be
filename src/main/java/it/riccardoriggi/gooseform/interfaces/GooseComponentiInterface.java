@@ -16,6 +16,8 @@ public interface GooseComponentiInterface {
 
 	ResponseEntity<Object> getComponenti(String formId);
 
+	boolean isComponenteEsistente(String formId, String componentId);
+
 
 
 

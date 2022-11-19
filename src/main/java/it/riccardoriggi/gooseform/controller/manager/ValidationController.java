@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.riccardoriggi.gooseform.interfaces.ValidationInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseValidationInterface;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ValidationController {
 
 	@Autowired
-	private ValidationInterface service;
+	private GooseValidationInterface service;
 
 	@GetMapping("/componente/{type}")
 	public ResponseEntity<Object> listaAttributiPerComponente(HttpServletRequest request, @PathVariable("type") String type){
@@ -48,6 +48,11 @@ public class ValidationController {
 	@GetMapping("/render/{type}/{k}")
 	public ResponseEntity<Object> verificaTipoRender(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("k") String k){
 		return service.verificaTipoRender(type,k);
+	}
+
+	@GetMapping("/placeholder/{type}")
+	public ResponseEntity<Object> getPlaceholder(HttpServletRequest request, @PathVariable("type") String type){
+		return service.getPlaceholder(type);
 	}
 
 }

@@ -5,12 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import it.riccardoriggi.gooseform.entity.GooseKeyValue;
 import it.riccardoriggi.gooseform.entity.db.TComponentSpecific;
 import it.riccardoriggi.gooseform.entity.db.TControl;
 import it.riccardoriggi.gooseform.entity.db.TRender;
 
 @Mapper
-public interface ValidationMapper {
+public interface GooseValidationMapper {
 
 	@Select("SELECT * FROM t_component_specific WHERE type = #{type} AND k = #{k} ")
 	TComponentSpecific verificaAttributoPerComponente(String type, String k);
@@ -29,4 +30,7 @@ public interface ValidationMapper {
 
 	@Select("SELECT * FROM t_render WHERE type = #{type}")
 	List<TRender> listaTipoRenderSpecificoDatoRender(String type);
+
+	@Select("SELECT type as 'key', placeholder as 'value' FROM t_placeholder WHERE type = #{type}")
+	GooseKeyValue getPlaceholder(String type);
 }

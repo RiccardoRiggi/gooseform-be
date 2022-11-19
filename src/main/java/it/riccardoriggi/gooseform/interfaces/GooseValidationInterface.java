@@ -2,7 +2,7 @@ package it.riccardoriggi.gooseform.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
-public interface ValidationInterface {
+public interface GooseValidationInterface {
 
 	ResponseEntity<Object> verificaAttributoPerComponente(String type, String k);
 
@@ -15,6 +15,16 @@ public interface ValidationInterface {
 	ResponseEntity<Object> verificaTipoRender(String type, String k);
 
 	ResponseEntity<Object> listaTipoRenderSpecificoDatoRender(String type);
+
+	ResponseEntity<Object> getPlaceholder(String type);
+
+	boolean esisteTipoComponente(String type);
+
+	boolean esisteAttributoPerComponente(String type, String k);
+
+	boolean esisteTipoControllo(String type, String typeSpecific);
+
+	boolean esisteTipoRender(String type, String typeSpecific);
 
 
 

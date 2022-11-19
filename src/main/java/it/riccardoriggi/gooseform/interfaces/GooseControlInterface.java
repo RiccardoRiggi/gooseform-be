@@ -16,6 +16,8 @@ public interface GooseControlInterface {
 
 	ResponseEntity<Object> getControlli(String formId);
 
+	boolean esisteControllo(int pk);
+
 
 
 

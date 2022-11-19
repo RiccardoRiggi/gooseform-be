@@ -18,6 +18,8 @@ public interface GooseHttpRequestInterface {
 
 	ResponseEntity<Object> getChiamataByPk(int pk);
 
+	boolean esisteChiamata(int pk);
+
 
 
 

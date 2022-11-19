@@ -5,13 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import it.riccardoriggi.gooseform.entity.GooseError;
-import it.riccardoriggi.gooseform.entity.db.GooseComponentDb;
+import it.riccardoriggi.gooseform.constants.GooseErrors;
+import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseKvComponentDb;
+import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseKvComponentInterface;
-import it.riccardoriggi.gooseform.mapper.GooseComponentMapper;
 import it.riccardoriggi.gooseform.mapper.GooseKvComponentMapper;
-import it.riccardoriggi.gooseform.mapper.ValidationMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -22,30 +22,32 @@ public class GooseKvComponentService implements GooseKvComponentInterface {
 	GooseKvComponentMapper mapper;
 
 	@Autowired
-	GooseComponentMapper mapperComponenti;
+	GooseFormInterface formService;
 
 	@Autowired
-	ValidationMapper mapperValidazione;
+	GooseComponentiInterface componentService;
 
 	@Override
 	public ResponseEntity<Object> inserisci(GooseKvComponentDb kv) {
 		try {
 
-			GooseComponentDb componente = mapperComponenti.getComponent(kv.getFormId(), kv.getComponentId());
-
-			if(componente==null) {
-				return new ResponseEntity<Object>("Componente non trovato!",HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-
-			if(mapperValidazione.verificaAttributoPerComponente(componente.getType(), kv.getK())==null) {
-				return new ResponseEntity<Object>("Attributo non supportato!",HttpStatus.INTERNAL_SERVER_ERROR);
+			if(kv.getFormId()==null) {
+				return new ResponseEntity<Object>(new GooseProblem(500, "Il campo formId è richiesto"), HttpStatus.INTERNAL_SERVER_ERROR);
+			}else if(!formService.isFormEsistente(kv.getFormId())) {
+				return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.FORM_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			}else if(kv.getComponentId() != null && !componentService.isComponenteEsistente(kv.getFormId(), kv.getComponentId())) {
+				return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 
 			mapper.inserisci(kv);
 			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseError(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			if(e.getMessage().contains("SQLIntegrityConstraintViolationException")){
+				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"), HttpStatus.INTERNAL_SERVER_ERROR);
+			}else {
+				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 	}
 
@@ -55,7 +57,7 @@ public class GooseKvComponentService implements GooseKvComponentInterface {
 			return new ResponseEntity<Object>(mapper.getLista(formId,componentId),HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseError(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -66,7 +68,7 @@ public class GooseKvComponentService implements GooseKvComponentInterface {
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseError(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

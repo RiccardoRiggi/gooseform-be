@@ -16,6 +16,8 @@ public interface GooseFormInterface {
 
 	ResponseEntity<Object> eliminaForm(String formId);
 
+	boolean isFormEsistente (String formId);
+
 
 
 }

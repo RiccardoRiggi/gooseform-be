@@ -5,9 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import it.riccardoriggi.gooseform.entity.GooseError;
+import it.riccardoriggi.gooseform.constants.GooseErrors;
+import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseButtonDb;
 import it.riccardoriggi.gooseform.interfaces.GooseButtonInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
 import it.riccardoriggi.gooseform.mapper.GooseButtonMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,14 +20,28 @@ public class GooseButtonService implements GooseButtonInterface{
 	@Autowired
 	GooseButtonMapper buttonMapper;
 
+	@Autowired
+	GooseFormInterface formService;
+
 	@Override
 	public ResponseEntity<Object> inserisciButton(GooseButtonDb button) {
+
+		if(button.getFormId()==null) {
+			return new ResponseEntity<Object>(new GooseProblem(500, "Il campo formId è richiesto"), HttpStatus.INTERNAL_SERVER_ERROR);
+		}else if(!formService.isFormEsistente(button.getFormId())) {
+			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.FORM_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		try {
 			buttonMapper.inserisciButton(button);
 			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
-			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+			if(e.getMessage().contains("SQLIntegrityConstraintViolationException")){
+				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"), HttpStatus.INTERNAL_SERVER_ERROR);
+			}else {
+				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}
 	}
 
@@ -35,7 +51,7 @@ public class GooseButtonService implements GooseButtonInterface{
 			return new ResponseEntity<Object>(buttonMapper.getButton(formId,type),HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -46,7 +62,7 @@ public class GooseButtonService implements GooseButtonInterface{
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -57,7 +73,7 @@ public class GooseButtonService implements GooseButtonInterface{
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseError(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
