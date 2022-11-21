@@ -72,6 +72,21 @@ public class GooseKvComponentService implements GooseKvComponentInterface {
 		}
 	}
 
+	@Override
+	public void eliminazioneMassiva(String formId, String componentId) {
+
+		try {
+			if(componentId==null) {
+				mapper.eliminaByFormId(formId);
+			}else {
+				mapper.eliminaByComponentId(formId, componentId);
+			}
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+		}
+
+	}
+
 
 
 }

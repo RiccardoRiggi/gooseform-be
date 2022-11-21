@@ -11,6 +11,7 @@ import it.riccardoriggi.gooseform.entity.db.GooseHttpRequestDb;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseHttpRequestInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseKvHttpRequestInterface;
 import it.riccardoriggi.gooseform.mapper.GooseHttpRequestMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +27,9 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 
 	@Autowired
 	GooseComponentiInterface componentService;
+
+	@Autowired
+	GooseKvHttpRequestInterface kvHttpService;
 
 	@Override
 	public ResponseEntity<Object> inserisciChiamata(GooseHttpRequestDb chiamata) {
@@ -65,6 +69,7 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 	@Override
 	public ResponseEntity<Object> eliminaChiamata(int pk) {
 		try {
+			kvHttpService.elimina(pk);
 			chiamataMapper.deleteChiamata(pk);
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
@@ -113,5 +118,22 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 		}
 		return esiste;
 	}
+
+	@Override
+	public void eliminazioneMassiva(String formId, String componentId) {
+		try {
+
+			if(componentId==null) {
+				chiamataMapper.deleteChiamataByFormId(formId);
+			}else {
+				chiamataMapper.deleteChiamataByComponentId(formId, componentId);
+			}
+
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+		}
+	}
+
+
 
 }

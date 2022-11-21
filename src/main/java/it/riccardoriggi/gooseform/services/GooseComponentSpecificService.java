@@ -88,4 +88,20 @@ public class GooseComponentSpecificService implements GooseComponentSpecificiInt
 		}
 	}
 
+	@Override
+	public void eliminazioneMassiva(String formId, String componentId) {
+		try {
+
+			if(componentId==null) {
+				componentSpecificMapper.deleteRigaByFormId(formId);
+			}else {
+				componentSpecificMapper.deleteRigaByComponentId(formId, componentId);
+			}
+
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
+		}
+
+	}
+
 }

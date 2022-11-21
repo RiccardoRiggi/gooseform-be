@@ -23,4 +23,7 @@ public interface GooseButtonMapper {
 
 	@Delete("DELETE FROM goose_button WHERE formId = #{formId} AND type = #{type}")
 	void deleteButton(String formId, String type);
+
+	@Delete("DELETE FROM goose_button WHERE formId = #{formId}")
+	void deleteButtonByFormId(String formId);
 }

@@ -22,9 +22,18 @@ public interface GooseControlMapper {
 	@Select("SELECT * FROM goose_control where formId = #{formId}")
 	List<GooseControlDb> getControlli(String formId);
 
+	@Select("SELECT * FROM goose_control where formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} OR idComponentC = #{componentId} )")
+	List<GooseControlDb> getControlli(String formId, String componentId);
+
 	@Update("UPDATE goose_control SET type=#{type},typeSpecific=#{typeSpecific},idComponentA=#{idComponentA},idComponentB=#{idComponentB},idComponentC=#{idComponentC},referenceValue=#{referenceValue},errorMessage=#{errorMessage} WHERE pk = #{pk}")
 	void modificaControllo(String type, String typeSpecific, String idComponentA, String idComponentB, String idComponentC, String referenceValue, String errorMessage, int pk);
 
 	@Delete("DELETE FROM goose_control WHERE pk = #{pk}")
 	void eliminaControllo(int pk);
+
+	@Delete("DELETE FROM goose_control WHERE formId = #{formId}")
+	void eliminaControlloByFormId(String formId);
+
+	@Delete("DELETE FROM goose_control WHERE formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} OR idComponentC = #{componentId} )")
+	void eliminaControlloByComponentId(String formId, String componentId);
 }

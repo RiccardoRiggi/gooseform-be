@@ -12,5 +12,6 @@ public interface GooseKvComponentInterface {
 
 	ResponseEntity<Object> elimina(String formId, String componentId, String k);
 
+	void eliminazioneMassiva(String formId, String componentId);
 
 }

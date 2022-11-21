@@ -27,4 +27,7 @@ public interface GooseComponentMapper {
 
 	@Delete("DELETE FROM goose_component WHERE formId = #{formId} AND id = #{id}")
 	void deleteComponent(String formId, String id);
+
+	@Delete("DELETE FROM goose_component WHERE formId = #{formId}")
+	void deleteComponentByFormId(String formId);
 }

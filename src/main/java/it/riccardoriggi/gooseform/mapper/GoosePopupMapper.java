@@ -26,4 +26,10 @@ public interface GoosePopupMapper {
 
 	@Delete("DELETE FROM goose_popup WHERE pk = #{pk}")
 	void deletePopup(int pk);
+
+	@Delete("DELETE FROM goose_popup WHERE formId = #{formId} AND componentId = #{componentId}")
+	void deletePopupByComponentId(String formId, String componentId);
+
+	@Delete("DELETE FROM goose_popup WHERE formId = #{formId}")
+	void deletePopupByFormId(String formId);
 }

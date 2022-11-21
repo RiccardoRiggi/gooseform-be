@@ -14,6 +14,8 @@ public interface GooseButtonInterface {
 
 	ResponseEntity<Object> eliminaButton(String type, String formId);
 
+	void eliminazioneMassiva(String formId);
+
 
 
 }

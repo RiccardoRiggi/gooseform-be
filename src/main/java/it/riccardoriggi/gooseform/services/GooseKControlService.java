@@ -64,6 +64,17 @@ public class GooseKControlService implements GooseKControlInterface {
 		}
 	}
 
+	@Override
+	public ResponseEntity<Object> elimina(int pkHttp) {
+		try {
+			mapper.elimina(pkHttp);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 
 
 }

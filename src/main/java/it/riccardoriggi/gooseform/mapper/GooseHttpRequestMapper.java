@@ -28,4 +28,10 @@ public interface GooseHttpRequestMapper {
 
 	@Delete("DELETE FROM goose_http_request WHERE pk = #{pk}")
 	void deleteChiamata(int pk);
+
+	@Delete("DELETE FROM goose_http_request WHERE formId = #{formId}")
+	void deleteChiamataByFormId(String formId);
+
+	@Delete("DELETE FROM goose_http_request WHERE formId = #{formId} AND componentId = #{componentId}")
+	void deleteChiamataByComponentId(String formId, String componentId);
 }

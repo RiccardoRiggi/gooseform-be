@@ -14,5 +14,7 @@ public interface GooseComponentSpecificiInterface {
 
 	ResponseEntity<Object> getRighe(String formId, String id);
 
+	void eliminazioneMassiva(String formId, String componentId);
+
 
 }

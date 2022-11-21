@@ -18,8 +18,8 @@ public interface GooseControlInterface {
 
 	boolean esisteControllo(int pk);
 
+	void eliminazioneMassiva(String formId, String componentId);
 
-
-
+	boolean esistonoControlli(String formId, String componentId);
 
 }

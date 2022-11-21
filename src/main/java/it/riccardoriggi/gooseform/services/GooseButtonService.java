@@ -77,5 +77,14 @@ public class GooseButtonService implements GooseButtonInterface{
 		}
 	}
 
+	@Override
+	public void eliminazioneMassiva(String formId) {
+		try {
+			buttonMapper.deleteButtonByFormId(formId);
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
+		}
+	}
+
 
 }

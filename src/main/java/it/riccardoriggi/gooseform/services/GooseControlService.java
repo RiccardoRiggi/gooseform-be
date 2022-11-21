@@ -11,6 +11,7 @@ import it.riccardoriggi.gooseform.entity.db.GooseControlDb;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseControlInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseKControlInterface;
 import it.riccardoriggi.gooseform.mapper.GooseControlMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +30,9 @@ public class GooseControlService implements GooseControlInterface {
 
 	@Autowired
 	GooseValidationService validationService;
+
+	@Autowired
+	GooseKControlInterface kControlService;
 
 	@Override
 	public ResponseEntity<Object> inserisciControllo(GooseControlDb controllo) {
@@ -81,6 +85,7 @@ public class GooseControlService implements GooseControlInterface {
 	public ResponseEntity<Object> eliminaControllo(int pk) {
 		try {
 			controlMapper.eliminaControllo(pk);
+			kControlService.elimina(pk);
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
@@ -109,6 +114,17 @@ public class GooseControlService implements GooseControlInterface {
 	}
 
 	@Override
+	public boolean esistonoControlli(String formId, String componentId) {
+		boolean esiste=false;
+		try {
+			esiste = !controlMapper.getControlli(formId,componentId).isEmpty();
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
+		}
+		return esiste;
+	}
+
+	@Override
 	public boolean esisteControllo(int pk) {
 		boolean esiste=false;
 		try {
@@ -117,5 +133,21 @@ public class GooseControlService implements GooseControlInterface {
 			log.error("Errore durante l'inserimento in GOOSE_HTTP_REQUEST: ", e);
 		}
 		return esiste;
+	}
+
+	@Override
+	public void eliminazioneMassiva(String formId, String componentId) {
+		try {
+
+			if(componentId==null) {
+				controlMapper.eliminaControlloByFormId(formId);
+			}else {
+				controlMapper.eliminaControlloByComponentId(formId, componentId);
+			}
+
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
+		}
+
 	}
 }

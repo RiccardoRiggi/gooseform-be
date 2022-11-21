@@ -20,10 +20,6 @@ public interface GooseHttpRequestInterface {
 
 	boolean esisteChiamata(int pk);
 
-
-
-
-
-
+	void eliminazioneMassiva(String formId, String componentId);
 
 }

@@ -16,6 +16,6 @@ public interface GoosePopupInterface {
 
 	ResponseEntity<Object> eliminaPopup(int pk);
 
-
+	void eliminazioneMassiva(String formId, String componentId);
 
 }

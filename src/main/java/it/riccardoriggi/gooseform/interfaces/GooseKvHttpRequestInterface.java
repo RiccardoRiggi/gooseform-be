@@ -12,5 +12,7 @@ public interface GooseKvHttpRequestInterface {
 
 	ResponseEntity<Object> elimina(int pkHttp, String k);
 
+	ResponseEntity<Object> elimina(int pkHttp);
+
 
 }

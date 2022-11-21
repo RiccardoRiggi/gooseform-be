@@ -18,6 +18,9 @@ public interface GooseComponentiInterface {
 
 	boolean isComponenteEsistente(String formId, String componentId);
 
+	void eliminazioneMassiva(String formId);
+
+
 
 
 

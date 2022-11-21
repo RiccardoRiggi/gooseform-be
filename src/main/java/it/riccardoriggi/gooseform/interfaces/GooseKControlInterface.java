@@ -12,5 +12,8 @@ public interface GooseKControlInterface {
 
 	ResponseEntity<Object> elimina(int pkControl, String k);
 
+	ResponseEntity<Object> elimina(int pkControl);
+
+
 
 }

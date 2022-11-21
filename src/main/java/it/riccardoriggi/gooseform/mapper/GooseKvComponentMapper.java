@@ -20,4 +20,10 @@ public interface GooseKvComponentMapper {
 
 	@Delete("DELETE FROM goose_kv_component WHERE formId = #{formId} AND componentId = #{componentId} AND k = #{k}")
 	void elimina(String formId, String componentId, String k);
+
+	@Delete("DELETE FROM goose_kv_component WHERE formId = #{formId} AND componentId = #{componentId}")
+	void eliminaByComponentId(String formId, String componentId);
+
+	@Delete("DELETE FROM goose_kv_component WHERE formId = #{formId}")
+	void eliminaByFormId(String formId);
 }

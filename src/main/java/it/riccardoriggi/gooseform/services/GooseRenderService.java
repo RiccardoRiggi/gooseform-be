@@ -107,4 +107,29 @@ public class GooseRenderService implements GooseRenderInterface {
 			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@Override
+	public boolean esistonoRenders(String formId, String componentId) {
+		boolean esiste=false;
+		try {
+			esiste = !mapper.getRenders(formId,componentId).isEmpty();
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
+		}
+		return esiste;
+	}
+
+	@Override
+	public void eliminazioneMassiva(String formId, String componentId) {
+		try {
+			if(componentId==null) {
+				mapper.eliminaControlloByFormId(formId);
+			}else {
+				mapper.eliminaControlloByComponentId(formId, componentId);
+			}
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+		}
+
+	}
 }

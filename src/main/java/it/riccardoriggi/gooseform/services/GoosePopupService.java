@@ -99,5 +99,18 @@ public class GoosePopupService implements GoosePopupInterface{
 		}
 	}
 
+	@Override
+	public void eliminazioneMassiva(String formId, String componentId) {
+		try {
+			if(componentId==null) {
+				mapper.deletePopupByFormId(formId);
+			}else {
+				mapper.deletePopupByComponentId(formId, componentId);
+			}
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+		}
+	}
+
 
 }

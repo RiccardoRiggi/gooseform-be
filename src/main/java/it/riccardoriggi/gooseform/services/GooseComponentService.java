@@ -8,8 +8,14 @@ import org.springframework.stereotype.Service;
 import it.riccardoriggi.gooseform.constants.GooseErrors;
 import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseComponentDb;
+import it.riccardoriggi.gooseform.interfaces.GooseComponentSpecificiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseControlInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseHttpRequestInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseKvComponentInterface;
+import it.riccardoriggi.gooseform.interfaces.GoosePopupInterface;
+import it.riccardoriggi.gooseform.interfaces.GooseRenderInterface;
 import it.riccardoriggi.gooseform.mapper.GooseComponentMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +31,24 @@ public class GooseComponentService implements GooseComponentiInterface{
 
 	@Autowired
 	GooseValidationService validationService;
+
+	@Autowired
+	GooseComponentSpecificiInterface componentSpecificService;
+
+	@Autowired
+	GooseKvComponentInterface kvComponentService;
+
+	@Autowired
+	GoosePopupInterface popupService;
+
+	@Autowired
+	GooseHttpRequestInterface httpService;
+
+	@Autowired
+	GooseControlInterface controlService;
+
+	@Autowired
+	GooseRenderInterface renderService;
 
 	@Override
 	public ResponseEntity<Object> inserisciComponente(GooseComponentDb componente) {
@@ -64,6 +88,12 @@ public class GooseComponentService implements GooseComponentiInterface{
 	@Override
 	public ResponseEntity<Object> eliminaComponente(String formId, String id) {
 		try {
+			controlService.eliminazioneMassiva(formId, id);
+			renderService.eliminazioneMassiva(formId, id);
+			componentSpecificService.eliminazioneMassiva(formId, id);
+			kvComponentService.eliminazioneMassiva(formId, id);
+			popupService.eliminazioneMassiva(formId, id);
+			httpService.eliminazioneMassiva(formId, id);
 			componentMapper.deleteComponent(formId,id);
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
@@ -104,6 +134,17 @@ public class GooseComponentService implements GooseComponentiInterface{
 		}
 		log.info("Esiste il componente: "+esiste);
 		return esiste;
+	}
+
+	@Override
+	public void eliminazioneMassiva(String formId) {
+
+		try {
+			componentMapper.deleteComponentByFormId(formId);
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
+		}
+
 	}
 
 }

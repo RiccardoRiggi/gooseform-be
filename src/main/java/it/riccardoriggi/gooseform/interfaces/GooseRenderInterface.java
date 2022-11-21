@@ -16,8 +16,8 @@ public interface GooseRenderInterface {
 
 	ResponseEntity<Object> getRenders(String formId);
 
+	void eliminazioneMassiva(String formId, String componentId);
 
-
-
+	boolean esistonoRenders(String formId, String componentId);
 
 }

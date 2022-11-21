@@ -23,4 +23,10 @@ public interface GooseComponentSpecificMapper {
 
 	@Delete("DELETE FROM goose_component_specific WHERE formId = #{formId} AND id = #{id} AND nomeAttributo = #{nomeAttributo}")
 	void deleteRiga(String formId, String id, String nomeAttributo);
+
+	@Delete("DELETE FROM goose_component_specific WHERE formId = #{formId} AND id = #{id} ")
+	void deleteRigaByComponentId(String formId, String id);
+
+	@Delete("DELETE FROM goose_component_specific WHERE formId = #{formId}")
+	void deleteRigaByFormId(String formId);
 }
