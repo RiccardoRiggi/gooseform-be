@@ -1,7 +1,6 @@
 package it.riccardoriggi.gooseform.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,27 +25,27 @@ public class GooseFormService implements GooseFormInterface {
 	@Autowired
 	GooseFormMapper formMapper;
 
-	@Lazy
+
 	@Autowired
 	GooseComponentiInterface componentiService;
 
-	@Lazy
+
 	@Autowired
 	GooseRenderInterface renderService;
 
-	@Lazy
+
 	@Autowired
 	GooseControlInterface controlService;
 
-	@Lazy
+
 	@Autowired
 	GooseButtonInterface buttonService;
 
-	@Lazy
+
 	@Autowired
 	GoosePopupInterface popupService;
 
-	@Lazy
+
 	@Autowired
 	GooseHttpRequestInterface httpService;
 
