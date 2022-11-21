@@ -19,11 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GooseComponentSpecificService implements GooseComponentSpecificiInterface {
 
+
 	@Autowired
 	GooseComponentSpecificMapper componentSpecificMapper;
 
+
 	@Autowired
 	GooseComponentiInterface componentService;
+
 
 	@Autowired
 	GooseValidationInterface validationService;

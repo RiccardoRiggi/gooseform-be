@@ -18,11 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GoosePopupService implements GoosePopupInterface{
 
+
 	@Autowired
 	GoosePopupMapper mapper;
 
+
 	@Autowired
 	GooseFormInterface formService;
+
 
 	@Autowired
 	GooseComponentiInterface componentService;

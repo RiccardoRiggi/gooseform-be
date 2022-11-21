@@ -20,7 +20,7 @@ public interface GooseControlMapper {
 	GooseControlDb getControllo(int pk);
 
 	@Select("SELECT * FROM goose_control where formId = #{formId}")
-	List<GooseControlDb> getControlli(String formId);
+	List<GooseControlDb> getControlliByFormId(String formId);
 
 	@Select("SELECT * FROM goose_control where formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} OR idComponentC = #{componentId} )")
 	List<GooseControlDb> getControlli(String formId, String componentId);

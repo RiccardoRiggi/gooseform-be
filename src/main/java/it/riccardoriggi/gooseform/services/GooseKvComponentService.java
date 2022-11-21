@@ -18,11 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GooseKvComponentService implements GooseKvComponentInterface {
 
+
 	@Autowired
 	GooseKvComponentMapper mapper;
 
+
 	@Autowired
 	GooseFormInterface formService;
+
 
 	@Autowired
 	GooseComponentiInterface componentService;

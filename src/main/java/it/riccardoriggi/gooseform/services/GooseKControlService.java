@@ -17,8 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GooseKControlService implements GooseKControlInterface {
 
+
 	@Autowired
 	GooseKControlMapper mapper;
+
 
 	@Autowired
 	GooseControlInterface serviceControl;
@@ -56,7 +58,7 @@ public class GooseKControlService implements GooseKControlInterface {
 	@Override
 	public ResponseEntity<Object> elimina(int pkHttp, String k) {
 		try {
-			mapper.elimina(pkHttp,k);
+			mapper.eliminaById(pkHttp,k);
 			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);

@@ -22,14 +22,18 @@ public class GooseControlService implements GooseControlInterface {
 	@Autowired
 	GooseControlMapper controlMapper;
 
+
 	@Autowired
 	GooseFormInterface formService;
+
 
 	@Autowired
 	GooseComponentiInterface componentService;
 
+
 	@Autowired
 	GooseValidationService validationService;
+
 
 	@Autowired
 	GooseKControlInterface kControlService;
@@ -106,7 +110,7 @@ public class GooseControlService implements GooseControlInterface {
 	@Override
 	public ResponseEntity<Object> getControlli(String formId) {
 		try {
-			return new ResponseEntity<Object>(controlMapper.getControlli(formId),HttpStatus.OK);
+			return new ResponseEntity<Object>(controlMapper.getControlliByFormId(formId),HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
 			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);

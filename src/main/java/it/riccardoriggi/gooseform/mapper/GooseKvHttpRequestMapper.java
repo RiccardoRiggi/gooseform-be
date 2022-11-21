@@ -19,7 +19,7 @@ public interface GooseKvHttpRequestMapper {
 	List<GooseKvHttpRequestDb> getLista(int pkHttp);
 
 	@Delete("DELETE FROM goose_kv_http_request WHERE pkHttp = #{pkHttp} AND k = #{k}")
-	void elimina(int pkHttp, String k);
+	void eliminaById(int pkHttp, String k);
 
 	@Delete("DELETE FROM goose_kv_http_request WHERE pkHttp = #{pkHttp} ")
 	void elimina(int pkHttp);

@@ -21,7 +21,7 @@ public interface GooseRenderMapper {
 	GooseRenderDb getRender(int pk);
 
 	@Select("SELECT * FROM goose_render where formId = #{formId}")
-	List<GooseRenderDb> getRenders(String formId);
+	List<GooseRenderDb> getRendersByFormId(String formId);
 
 	@Select("SELECT * FROM goose_render where formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} OR idComponentC = #{componentId} )")
 	List<GooseRenderDb> getRenders(String formId, String componentId);

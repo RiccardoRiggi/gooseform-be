@@ -19,14 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GooseHttpRequestService implements GooseHttpRequestInterface {
 
+
 	@Autowired
 	GooseHttpRequestMapper chiamataMapper;
+
 
 	@Autowired
 	GooseFormInterface formService;
 
+
 	@Autowired
 	GooseComponentiInterface componentService;
+
 
 	@Autowired
 	GooseKvHttpRequestInterface kvHttpService;

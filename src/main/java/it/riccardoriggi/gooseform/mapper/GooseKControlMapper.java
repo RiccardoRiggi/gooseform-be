@@ -19,7 +19,7 @@ public interface GooseKControlMapper {
 	List<GooseKControlDb> getLista(int pkControl);
 
 	@Delete("DELETE FROM goose_k_control WHERE pkControl = #{pkControl} AND k = #{k}")
-	void elimina(int pkControl, String k);
+	void eliminaById(int pkControl, String k);
 
 	@Delete("DELETE FROM goose_k_control WHERE pkControl = #{pkControl}")
 	void elimina(int pkControl);

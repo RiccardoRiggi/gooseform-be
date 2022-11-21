@@ -18,14 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GooseRenderService implements GooseRenderInterface {
 
+
 	@Autowired
 	GooseRenderMapper mapper;
+
 
 	@Autowired
 	GooseFormInterface formService;
 
+
 	@Autowired
 	GooseComponentiInterface componentService;
+
 
 	@Autowired
 	GooseValidationService validationService;
@@ -101,7 +105,7 @@ public class GooseRenderService implements GooseRenderInterface {
 	@Override
 	public ResponseEntity<Object> getRenders(String formId) {
 		try {
-			return new ResponseEntity<Object>(mapper.getRenders(formId),HttpStatus.OK);
+			return new ResponseEntity<Object>(mapper.getRendersByFormId(formId),HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
 			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);

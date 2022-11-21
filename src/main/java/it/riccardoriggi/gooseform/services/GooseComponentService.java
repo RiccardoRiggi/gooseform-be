@@ -23,29 +23,38 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GooseComponentService implements GooseComponentiInterface{
 
+
 	@Autowired
 	GooseComponentMapper componentMapper;
+
 
 	@Autowired
 	GooseFormInterface formService;
 
+
 	@Autowired
 	GooseValidationService validationService;
+
 
 	@Autowired
 	GooseComponentSpecificiInterface componentSpecificService;
 
+
 	@Autowired
 	GooseKvComponentInterface kvComponentService;
+
 
 	@Autowired
 	GoosePopupInterface popupService;
 
+
 	@Autowired
 	GooseHttpRequestInterface httpService;
 
+
 	@Autowired
 	GooseControlInterface controlService;
+
 
 	@Autowired
 	GooseRenderInterface renderService;
