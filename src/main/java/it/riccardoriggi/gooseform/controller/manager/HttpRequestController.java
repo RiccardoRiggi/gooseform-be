@@ -55,9 +55,9 @@ public class HttpRequestController {
 		return chiamataService.getChiamataById(formId, componentId);
 	}
 
-	@GetMapping("/{formId}")
-	public ResponseEntity<Object> getChiamataByFormId(HttpServletRequest request,@PathVariable("formId") String formId){
-		return chiamataService.getChiamataByFormId(formId);
+	@GetMapping("/form/{typeSpecific}/{formId}")
+	public ResponseEntity<Object> getChiamataByFormId(HttpServletRequest request,@PathVariable("formId") String formId, @PathVariable("typeSpecific") String typeSpecific){
+		return chiamataService.getChiamataByFormId(formId,typeSpecific);
 	}
 
 	@PutMapping("/modifica/{pk}")

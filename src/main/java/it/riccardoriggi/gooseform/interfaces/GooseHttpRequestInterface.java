@@ -14,12 +14,14 @@ public interface GooseHttpRequestInterface {
 
 	ResponseEntity<Object> getChiamataById(String formId, String componentId);
 
-	ResponseEntity<Object> getChiamataByFormId(String formId);
+	ResponseEntity<Object> getChiamataByFormId(String formId, String typeSpecific);
 
 	ResponseEntity<Object> getChiamataByPk(int pk);
 
 	boolean esisteChiamata(int pk);
 
 	void eliminazioneMassiva(String formId, String componentId);
+
+	boolean isChiamataEsistente(String formId, String componentId);
 
 }

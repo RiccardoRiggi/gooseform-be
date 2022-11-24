@@ -18,7 +18,7 @@ public interface GoosePopupMapper {
 	@Select("SELECT * FROM goose_popup where formId = #{formId} AND componentId = #{componentId}")
 	GoosePopupDb getPopupById(String formId, String componentId);
 
-	@Select("SELECT * FROM goose_popup where formId = #{formId} AND componentId = '' ")
+	@Select("SELECT * FROM goose_popup where formId = #{formId} AND componentId IS NULL ")
 	GoosePopupDb getPopupByFormId(String formId);
 
 	@Update("UPDATE goose_popup SET title=#{title}, icon=#{icon}, textTooltip=#{textTooltip}, description=#{description} WHERE pk = #{pk} ")

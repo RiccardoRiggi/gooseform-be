@@ -21,7 +21,10 @@ public class GooseErrors {
 
 	/* GOOSE_POPUP */
 
-	public static final String POPUP_ESISTENTE = "Esiste già un popup per l'oggeto selezionato";
+	public static final String POPUP_ESISTENTE_FORM = "Esiste già un popup per il form selezionato";
+
+	public static final String POPUP_ESISTENTE_COMPONENTE = "Esiste già un popup per il componente selezionato";
+
 
 	public static final String CONTROLLO_NON_ESISTENTE = "Il type e il typeSpecific inseriti non esistono";
 

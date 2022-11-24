@@ -20,8 +20,8 @@ public interface GooseHttpRequestMapper {
 	@Select("SELECT * FROM goose_http_request WHERE formId = #{formId} AND componentId = #{componentId} ")
 	GooseHttpRequestDb getChiamataById(String formId, String componentId);
 
-	@Select("SELECT * FROM goose_http_request WHERE formId = #{formId} AND componentId = '' ")
-	GooseHttpRequestDb getChiamataByFormId(String formId);
+	@Select("SELECT * FROM goose_http_request WHERE formId = #{formId} AND componentId IS NULL AND typeSpecific = #{typeSpecific} ")
+	GooseHttpRequestDb getChiamataByFormId(String formId, String typeSpecific);
 
 	@Update("UPDATE goose_http_request SET url=#{url}, method=#{method} ,body=#{body} WHERE pk = #{pk}")
 	void updateChiamata(String url, String method, String body, int pk);

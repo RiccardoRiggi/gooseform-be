@@ -18,4 +18,8 @@ public interface GoosePopupInterface {
 
 	void eliminazioneMassiva(String formId, String componentId);
 
+	boolean esistePopupByFormId(String formId);
+
+	boolean esistePopupById(String formId, String componentId);
+
 }

@@ -41,10 +41,10 @@ public class GoosePopupService implements GoosePopupInterface{
 			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		if(button.getComponentId()==null && getPopupByFormId(button.getFormId()) !=null) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.POPUP_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
-		}else if(button.getComponentId()!=null && getPopupById(button.getFormId(), button.getComponentId()) !=null) {
-			return new ResponseEntity<Object>(new GooseProblem(501, GooseErrors.POPUP_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+		if(button.getComponentId()==null && esistePopupByFormId(button.getFormId())) {
+			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.POPUP_ESISTENTE_FORM), HttpStatus.INTERNAL_SERVER_ERROR);
+		}else if(button.getComponentId()!=null && esistePopupById(button.getFormId(), button.getComponentId())) {
+			return new ResponseEntity<Object>(new GooseProblem(501, GooseErrors.POPUP_ESISTENTE_COMPONENTE), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		try {
@@ -71,6 +71,17 @@ public class GoosePopupService implements GoosePopupInterface{
 	}
 
 	@Override
+	public boolean esistePopupById(String formId, String componentId) {
+		boolean esiste = false;
+		try {
+			esiste = mapper.getPopupById(formId,componentId)!=null;
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
+		}
+		return esiste;
+	}
+
+	@Override
 	public ResponseEntity<Object> getPopupByFormId(String formId) {
 		try {
 			return new ResponseEntity<Object>(mapper.getPopupByFormId(formId),HttpStatus.OK);
@@ -78,6 +89,17 @@ public class GoosePopupService implements GoosePopupInterface{
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
 			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@Override
+	public boolean esistePopupByFormId(String formId) {
+		boolean esiste = false;
+		try {
+			esiste = mapper.getPopupByFormId(formId) != null;
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
+		}
+		return esiste;
 	}
 
 	@Override

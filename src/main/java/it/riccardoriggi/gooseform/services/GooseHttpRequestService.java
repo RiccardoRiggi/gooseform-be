@@ -44,6 +44,8 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.FORM_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
 		}else if(chiamata.getComponentId() != null && !componentService.isComponenteEsistente(chiamata.getFormId(), chiamata.getComponentId())) {
 			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+		}else if(isChiamataEsistente(chiamata.getFormId(), chiamata.getComponentId())) {
+			return new ResponseEntity<Object>(new GooseProblem(500, "CHIAMATA ESISTENTE"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		try {
@@ -93,9 +95,20 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 	}
 
 	@Override
-	public ResponseEntity<Object> getChiamataByFormId(String formId) {
+	public boolean isChiamataEsistente(String formId, String componentId) {
+		boolean esiste = false;
 		try {
-			return new ResponseEntity<Object>(chiamataMapper.getChiamataByFormId(formId), HttpStatus.OK);
+			esiste = chiamataMapper.getChiamataById(formId, componentId) != null;
+		} catch (Exception e) {
+			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
+		}
+		return esiste;
+	}
+
+	@Override
+	public ResponseEntity<Object> getChiamataByFormId(String formId, String typeSpecific) {
+		try {
+			return new ResponseEntity<Object>(chiamataMapper.getChiamataByFormId(formId, typeSpecific), HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
 			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
