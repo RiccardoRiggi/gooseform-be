@@ -30,4 +30,7 @@ public class GooseErrors {
 
 	public static final String COMPONENTE_NON_ESISTENTE_X = "Non è stato trovato nel form un componente corrispondente al componentId";
 
+	public static final String TOOLTIP_ESISTENTE_FORM = "Esiste già un tooltip per il form selezionato";
+
+	public static final String TOOLTIP_ESISTENTE_COMPONENTE = "Esiste già un tooltip per il componente selezionato";
 }
