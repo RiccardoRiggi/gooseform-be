@@ -15,7 +15,6 @@ public class GooseControlDb {
 	private String typeSpecific;
 	private String idComponentA;
 	private String idComponentB;
-	private String idComponentC;
     private String referenceValue;
     private String errorMessage;
 

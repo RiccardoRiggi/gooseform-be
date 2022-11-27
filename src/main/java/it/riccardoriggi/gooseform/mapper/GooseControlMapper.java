@@ -13,7 +13,7 @@ import it.riccardoriggi.gooseform.entity.db.GooseControlDb;
 @Mapper
 public interface GooseControlMapper {
 
-	@Insert("INSERT INTO goose_control(formId, type, typeSpecific, idComponentA, idComponentB, idComponentC, referenceValue, errorMessage) VALUES (#{formId},#{type},#{typeSpecific},#{idComponentA},#{idComponentB},#{idComponentC},#{referenceValue},#{errorMessage})")
+	@Insert("INSERT INTO goose_control(formId, type, typeSpecific, idComponentA, idComponentB, referenceValue, errorMessage) VALUES (#{formId},#{type},#{typeSpecific},#{idComponentA},#{idComponentB},#{referenceValue},#{errorMessage})")
 	void inserisciControllo(GooseControlDb gooseControl);
 
 	@Select("SELECT * FROM goose_control where pk = #{pk}")
@@ -22,11 +22,11 @@ public interface GooseControlMapper {
 	@Select("SELECT * FROM goose_control where formId = #{formId}")
 	List<GooseControlDb> getControlliByFormId(String formId);
 
-	@Select("SELECT * FROM goose_control where formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} OR idComponentC = #{componentId} )")
+	@Select("SELECT * FROM goose_control where formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} )")
 	List<GooseControlDb> getControlli(String formId, String componentId);
 
-	@Update("UPDATE goose_control SET type=#{type},typeSpecific=#{typeSpecific},idComponentA=#{idComponentA},idComponentB=#{idComponentB},idComponentC=#{idComponentC},referenceValue=#{referenceValue},errorMessage=#{errorMessage} WHERE pk = #{pk}")
-	void modificaControllo(String type, String typeSpecific, String idComponentA, String idComponentB, String idComponentC, String referenceValue, String errorMessage, int pk);
+	@Update("UPDATE goose_control SET type=#{type},typeSpecific=#{typeSpecific},idComponentA=#{idComponentA},idComponentB=#{idComponentB},referenceValue=#{referenceValue},errorMessage=#{errorMessage} WHERE pk = #{pk}")
+	void modificaControllo(String type, String typeSpecific, String idComponentA, String idComponentB, String referenceValue, String errorMessage, int pk);
 
 	@Delete("DELETE FROM goose_control WHERE pk = #{pk}")
 	void eliminaControllo(int pk);
@@ -34,6 +34,6 @@ public interface GooseControlMapper {
 	@Delete("DELETE FROM goose_control WHERE formId = #{formId}")
 	void eliminaControlloByFormId(String formId);
 
-	@Delete("DELETE FROM goose_control WHERE formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} OR idComponentC = #{componentId} )")
+	@Delete("DELETE FROM goose_control WHERE formId = #{formId} AND ( idComponentA = #{componentId} OR idComponentB = #{componentId} )")
 	void eliminaControlloByComponentId(String formId, String componentId);
 }

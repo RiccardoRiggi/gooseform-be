@@ -57,9 +57,7 @@ public class GooseControlService implements GooseControlInterface {
 			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE_X+"B"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		if(controllo.getIdComponentC()!=null && !componentService.isComponenteEsistente(controllo.getFormId(), controllo.getIdComponentC())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE_X+"C"), HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+
 
 		try {
 			controlMapper.inserisciControllo(controllo);
@@ -77,7 +75,7 @@ public class GooseControlService implements GooseControlInterface {
 	@Override
 	public ResponseEntity<Object> modificaControllo(GooseControlDb controllo, int pk) {
 		try {
-			controlMapper.modificaControllo(controllo.getType(), controllo.getTypeSpecific(), controllo.getIdComponentA(), controllo.getIdComponentB(), controllo.getIdComponentC(), controllo.getReferenceValue(), controllo.getErrorMessage(),pk);
+			controlMapper.modificaControllo(controllo.getType(), controllo.getTypeSpecific(), controllo.getIdComponentA(), controllo.getIdComponentB(), controllo.getReferenceValue(), controllo.getErrorMessage(),pk);
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ", e);
