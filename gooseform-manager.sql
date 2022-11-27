@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Nov 17, 2022 alle 19:52
+-- Creato il: Nov 27, 2022 alle 21:12
 -- Versione del server: 10.4.20-MariaDB
 -- Versione PHP: 8.0.9
 
@@ -91,8 +91,7 @@ CREATE TABLE `goose_control` (
   `type` varchar(255) NOT NULL,
   `typeSpecific` varchar(255) NOT NULL,
   `idComponentA` varchar(255) NOT NULL,
-  `idComponentB` varchar(255) NOT NULL,
-  `idComponentC` varchar(255) DEFAULT NULL,
+  `idComponentB` varchar(255) DEFAULT NULL,
   `referenceValue` varchar(512) DEFAULT NULL,
   `errorMessage` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -119,7 +118,7 @@ CREATE TABLE `goose_form` (
 CREATE TABLE `goose_http_request` (
   `pk` int(10) NOT NULL,
   `formId` varchar(255) NOT NULL,
-  `componentId` varchar(255) NOT NULL,
+  `componentId` varchar(255) DEFAULT NULL,
   `url` varchar(512) NOT NULL,
   `method` varchar(25) NOT NULL,
   `body` varchar(1024) NOT NULL,
@@ -171,7 +170,7 @@ CREATE TABLE `goose_k_control` (
 CREATE TABLE `goose_popup` (
   `pk` int(10) NOT NULL,
   `formId` varchar(255) NOT NULL,
-  `componentId` varchar(255) NOT NULL,
+  `componentId` varchar(255) DEFAULT NULL,
   `icon` varchar(255) NOT NULL,
   `textTooltip` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -198,6 +197,20 @@ CREATE TABLE `goose_render` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `goose_tooltip`
+--
+
+CREATE TABLE `goose_tooltip` (
+  `pk` int(10) NOT NULL,
+  `formId` varchar(255) NOT NULL,
+  `componentId` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) NOT NULL,
+  `tooltip` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `t_component_specific`
 --
 
@@ -217,6 +230,17 @@ CREATE TABLE `t_control` (
   `type` varchar(255) NOT NULL,
   `k` varchar(255) NOT NULL,
   `description` varchar(1024) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `t_placeholder`
+--
+
+CREATE TABLE `t_placeholder` (
+  `type` varchar(255) NOT NULL,
+  `placeholder` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -296,6 +320,12 @@ ALTER TABLE `goose_render`
   ADD PRIMARY KEY (`pk`);
 
 --
+-- Indici per le tabelle `goose_tooltip`
+--
+ALTER TABLE `goose_tooltip`
+  ADD PRIMARY KEY (`pk`);
+
+--
 -- Indici per le tabelle `t_component_specific`
 --
 ALTER TABLE `t_component_specific`
@@ -306,6 +336,12 @@ ALTER TABLE `t_component_specific`
 --
 ALTER TABLE `t_control`
   ADD PRIMARY KEY (`type`,`k`);
+
+--
+-- Indici per le tabelle `t_placeholder`
+--
+ALTER TABLE `t_placeholder`
+  ADD PRIMARY KEY (`type`);
 
 --
 -- Indici per le tabelle `t_render`
@@ -339,6 +375,12 @@ ALTER TABLE `goose_popup`
 -- AUTO_INCREMENT per la tabella `goose_render`
 --
 ALTER TABLE `goose_render`
+  MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `goose_tooltip`
+--
+ALTER TABLE `goose_tooltip`
   MODIFY `pk` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
