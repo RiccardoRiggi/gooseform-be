@@ -1,18 +1,19 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseKControlDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseKControlInterface {
 
-	ResponseEntity<Object> inserisci(GooseKControlDb kv);
+	void inserisci(GooseKControlDb kv) throws GooseFormException;
 
-	ResponseEntity<Object> getLista(int pkControl);
+	List<GooseKControlDb> getLista(int pkControl) throws GooseFormException;
 
-	ResponseEntity<Object> elimina(int pkControl, String k);
+	void elimina(int pkControl, String k) throws GooseFormException;
 
-	ResponseEntity<Object> elimina(int pkControl);
+	void elimina(int pkControl) throws GooseFormException;
 
 
 

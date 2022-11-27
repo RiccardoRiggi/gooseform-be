@@ -1,20 +1,19 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
-
 import it.riccardoriggi.gooseform.entity.db.GooseButtonDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseButtonInterface {
 
-	ResponseEntity<Object> inserisciButton(GooseButtonDb form);
+	public void inserisciButton(GooseButtonDb form) throws GooseFormException;
 
-	ResponseEntity<Object> getButton(String type, String formId);
+	public GooseButtonDb getButton(String type, String formId) throws GooseFormException;
 
-	ResponseEntity<Object> modificaButton(GooseButtonDb button, String type, String formId);
+	public void modificaButton(GooseButtonDb button, String type, String formId) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaButton(String type, String formId);
+	public void eliminaButton(String type, String formId) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId);
+	public void eliminazioneMassiva(String formId) throws GooseFormException;
 
 
 

@@ -1,24 +1,25 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseComponentDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseComponentiInterface {
 
-	ResponseEntity<Object> inserisciComponente(GooseComponentDb componente);
+	public void inserisciComponente(GooseComponentDb componente) throws GooseFormException;
 
-	ResponseEntity<Object> modificaComponente(GooseComponentDb componente, String formId, String id);
+	public void modificaComponente(GooseComponentDb componente, String formId, String id) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaComponente(String formId, String id);
+	public void eliminaComponente(String formId, String id) throws GooseFormException;
 
-	ResponseEntity<Object> getComponent(String formId, String id);
+	public GooseComponentDb getComponent(String formId, String id) throws GooseFormException;
 
-	ResponseEntity<Object> getComponenti(String formId);
+	public List<GooseComponentDb> getComponenti(String formId) throws GooseFormException;
 
-	boolean isComponenteEsistente(String formId, String componentId);
+	boolean isComponenteEsistente(String formId, String componentId) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId);
+	void eliminazioneMassiva(String formId) throws GooseFormException;
 
 
 

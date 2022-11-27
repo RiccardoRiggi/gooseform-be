@@ -1,30 +1,36 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
+
+import it.riccardoriggi.gooseform.entity.GooseKeyValue;
+import it.riccardoriggi.gooseform.entity.db.TComponentSpecific;
+import it.riccardoriggi.gooseform.entity.db.TControl;
+import it.riccardoriggi.gooseform.entity.db.TRender;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseValidationInterface {
 
-	ResponseEntity<Object> verificaAttributoPerComponente(String type, String k);
+	TComponentSpecific verificaAttributoPerComponente(String type, String k) throws GooseFormException;
 
-	ResponseEntity<Object> listaAttributiPerComponente(String type);
+	List<TComponentSpecific> listaAttributiPerComponente(String type) throws GooseFormException;
 
-	ResponseEntity<Object> verificaTipoControllo(String type, String k);
+	TControl verificaTipoControllo(String type, String k) throws GooseFormException;
 
-	ResponseEntity<Object> listaTipoControlliSpecificoDatoControllo(String type);
+	List<TControl> listaTipoControlliSpecificoDatoControllo(String type) throws GooseFormException;
 
-	ResponseEntity<Object> verificaTipoRender(String type, String k);
+	TRender verificaTipoRender(String type, String k) throws GooseFormException;
 
-	ResponseEntity<Object> listaTipoRenderSpecificoDatoRender(String type);
+	List<TRender> listaTipoRenderSpecificoDatoRender(String type) throws GooseFormException;
 
-	ResponseEntity<Object> getPlaceholder(String type);
+	GooseKeyValue getPlaceholder(String type) throws GooseFormException;
 
-	boolean esisteTipoComponente(String type);
+	boolean esisteTipoComponente(String type) throws GooseFormException;
 
-	boolean esisteAttributoPerComponente(String type, String k);
+	boolean esisteAttributoPerComponente(String type, String k) throws GooseFormException;
 
-	boolean esisteTipoControllo(String type, String typeSpecific);
+	boolean esisteTipoControllo(String type, String typeSpecific) throws GooseFormException;
 
-	boolean esisteTipoRender(String type, String typeSpecific);
+	boolean esisteTipoRender(String type, String typeSpecific) throws GooseFormException;
 
 
 

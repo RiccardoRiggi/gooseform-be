@@ -1,13 +1,11 @@
 package it.riccardoriggi.gooseform.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import it.riccardoriggi.gooseform.constants.GooseErrors;
-import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseTooltipDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseTooltipInterface;
@@ -31,47 +29,46 @@ public class GooseTooltipService implements GooseTooltipInterface{
 	GooseComponentiInterface componentService;
 
 	@Override
-	public ResponseEntity<Object> inserisciTooltip(GooseTooltipDb button) {
+	public void inserisciTooltip(GooseTooltipDb button) throws GooseFormException{
 
 		if(button.getFormId()==null) {
-			return new ResponseEntity<Object>(new GooseProblem(500, "Il campo formId è richiesto"), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, "Il campo formId è richiesto");
 		}else if(!formService.isFormEsistente(button.getFormId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.FORM_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.FORM_NON_ESISTENTE);
 		}else if(button.getComponentId() != null && !componentService.isComponenteEsistente(button.getFormId(), button.getComponentId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.COMPONENTE_NON_ESISTENTE);
 		}
 
 		if(button.getComponentId()==null && esisteTooltipByFormId(button.getFormId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.TOOLTIP_ESISTENTE_FORM), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.TOOLTIP_ESISTENTE_FORM);
 		}else if(button.getComponentId()!=null && esisteTooltipById(button.getFormId(), button.getComponentId())) {
-			return new ResponseEntity<Object>(new GooseProblem(501, GooseErrors.TOOLTIP_ESISTENTE_COMPONENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(501, GooseErrors.TOOLTIP_ESISTENTE_COMPONENTE);
 		}
 
 		try {
 			mapper.inserisciTooltip(button);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
 			if(e.getMessage().contains("SQLIntegrityConstraintViolationException")){
-				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, "Chiave primaria duplicata");
 			}else {
-				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> getTooltipById(String formId, String componentId) {
+	public GooseTooltipDb getTooltipById(String formId, String componentId) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(mapper.getTooltipById(formId,componentId),HttpStatus.OK);
+			return mapper.getTooltipById(formId,componentId);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean esisteTooltipById(String formId, String componentId) {
+	public boolean esisteTooltipById(String formId, String componentId) throws GooseFormException{
 		boolean esiste = false;
 		try {
 			esiste = mapper.getTooltipById(formId,componentId)!=null;
@@ -82,17 +79,17 @@ public class GooseTooltipService implements GooseTooltipInterface{
 	}
 
 	@Override
-	public ResponseEntity<Object> getTooltipByFormId(String formId) {
+	public GooseTooltipDb getTooltipByFormId(String formId) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(mapper.getTooltipByFormId(formId),HttpStatus.OK);
+			return mapper.getTooltipByFormId(formId);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean esisteTooltipByFormId(String formId) {
+	public boolean esisteTooltipByFormId(String formId) throws GooseFormException{
 		boolean esiste = false;
 		try {
 			esiste = mapper.getTooltipByFormId(formId) != null;
@@ -103,29 +100,27 @@ public class GooseTooltipService implements GooseTooltipInterface{
 	}
 
 	@Override
-	public ResponseEntity<Object> modificaTooltip(GooseTooltipDb button, int pk) {
+	public void modificaTooltip(GooseTooltipDb button, int pk) throws GooseFormException{
 		try {
 			mapper.updatTooltip(button.getIcon(), button.getTooltip(), pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> eliminaTooltip(int pk) {
+	public void eliminaTooltip(int pk) throws GooseFormException{
 		try {
 			mapper.deleteTooltip(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public void eliminazioneMassiva(String formId, String componentId) {
+	public void eliminazioneMassiva(String formId, String componentId) throws GooseFormException{
 		try {
 			if(componentId==null) {
 				mapper.deleteTooltipByFormId(formId);

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GooseComponentSpecificDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.services.GooseComponentSpecificService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,26 +38,42 @@ public class ComponentSpecificController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseComponentSpecificDb.class);
-			return componentSpecificService.insericiRiga(buttonInput);
+			componentSpecificService.insericiRiga(buttonInput);
+			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{id}/{nomeAttributo}")
 	public ResponseEntity<Object> getRiga(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId, @PathVariable("nomeAttributo") String nomeAttributo){
-		return componentSpecificService.getRiga(formId,id,nomeAttributo);
+		try {
+			return new ResponseEntity<Object>( componentSpecificService.getRiga(formId,id,nomeAttributo),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{formId}/{id}")
 	public ResponseEntity<Object> getRighe(HttpServletRequest request, @PathVariable("formId") String formId, @PathVariable("id") String id){
-		return componentSpecificService.getRighe(formId,id);
+		try {
+			return new ResponseEntity<Object>( componentSpecificService.getRighe(formId,id),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@DeleteMapping("/elimina/{formId}/{id}/{nomeAttributo}")
 	public ResponseEntity<Object> eliminaRiga(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId, @PathVariable("nomeAttributo") String nomeAttributo){
-		return componentSpecificService.eliminaRiga(formId,id,nomeAttributo);
+		try {
+			componentSpecificService.eliminaRiga(formId,id,nomeAttributo);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

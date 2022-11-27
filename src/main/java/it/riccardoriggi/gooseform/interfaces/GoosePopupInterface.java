@@ -1,25 +1,24 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
-
 import it.riccardoriggi.gooseform.entity.db.GoosePopupDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GoosePopupInterface {
 
-	ResponseEntity<Object> inserisciPopup(GoosePopupDb form);
+	void inserisciPopup(GoosePopupDb form) throws GooseFormException;
 
-	ResponseEntity<Object> getPopupById(String formId, String componentId);
+	GoosePopupDb getPopupById(String formId, String componentId) throws GooseFormException;
 
-	ResponseEntity<Object> getPopupByFormId(String formId);
+	GoosePopupDb getPopupByFormId(String formId) throws GooseFormException;
 
-	ResponseEntity<Object> modificaPopup(GoosePopupDb button, int pk);
+	void modificaPopup(GoosePopupDb button, int pk) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaPopup(int pk);
+	void eliminaPopup(int pk) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
-	boolean esistePopupByFormId(String formId);
+	boolean esistePopupByFormId(String formId) throws GooseFormException;
 
-	boolean esistePopupById(String formId, String componentId);
+	boolean esistePopupById(String formId, String componentId) throws GooseFormException;
 
 }

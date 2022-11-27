@@ -1,22 +1,23 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseFormDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseFormInterface {
 
-	ResponseEntity<Object> inserisciForm(GooseFormDb form);
+	void inserisciForm(GooseFormDb form) throws GooseFormException;
 
-	ResponseEntity<Object> getFormById(String formId);
+	GooseFormDb getFormById(String formId) throws GooseFormException;
 
-	ResponseEntity<Object> getListaForm();
+	List<GooseFormDb> getListaForm() throws GooseFormException;
 
-	ResponseEntity<Object> modificaForm(GooseFormDb form, String formId);
+	void modificaForm(GooseFormDb form, String formId) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaForm(String formId);
+	void eliminaForm(String formId) throws GooseFormException;
 
-	boolean isFormEsistente (String formId);
+	boolean isFormEsistente (String formId) throws GooseFormException;
 
 
 

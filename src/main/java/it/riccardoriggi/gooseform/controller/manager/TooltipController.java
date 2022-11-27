@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GooseTooltipDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseTooltipInterface;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,21 +39,32 @@ public class TooltipController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseTooltipDb.class);
-			return tooltipService.inserisciTooltip(buttonInput);
+			tooltipService.inserisciTooltip(buttonInput);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getPopupByFormId(HttpServletRequest request, @PathVariable("formId") String formId){
-		return tooltipService.getTooltipByFormId(formId);
+		try {
+			return new ResponseEntity<Object>( tooltipService.getTooltipByFormId(formId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{formId}/{componentId}")
 	public ResponseEntity<Object> getPopupById(HttpServletRequest request, @PathVariable("componentId") String componentId, @PathVariable("formId") String formId){
-		return tooltipService.getTooltipById(formId,componentId);
+		try {
+			return new ResponseEntity<Object>( tooltipService.getTooltipById(formId,componentId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping("/modifica/{pk}")
@@ -62,16 +74,24 @@ public class TooltipController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseTooltipDb.class);
-			return tooltipService.modificaTooltip(buttonInput,pk);
+			tooltipService.modificaTooltip(buttonInput,pk);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
-		return tooltipService.eliminaTooltip(pk);
+		try {
+			tooltipService.eliminaTooltip(pk);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

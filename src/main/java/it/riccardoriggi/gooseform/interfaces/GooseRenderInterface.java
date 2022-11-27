@@ -1,23 +1,24 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseRenderDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseRenderInterface {
 
-	ResponseEntity<Object> inserisciRender(GooseRenderDb controllo);
+	void inserisciRender(GooseRenderDb controllo) throws GooseFormException;
 
-	ResponseEntity<Object> modificaRender(GooseRenderDb controllo, int pk);
+	void modificaRender(GooseRenderDb controllo, int pk) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaRender(int pk);
+	void eliminaRender(int pk) throws GooseFormException;
 
-	ResponseEntity<Object> getRender(int pk);
+	GooseRenderDb getRender(int pk) throws GooseFormException;
 
-	ResponseEntity<Object> getRenders(String formId);
+	List<GooseRenderDb> getRenders(String formId) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
-	boolean esistonoRenders(String formId, String componentId);
+	boolean esistonoRenders(String formId, String componentId) throws GooseFormException;
 
 }

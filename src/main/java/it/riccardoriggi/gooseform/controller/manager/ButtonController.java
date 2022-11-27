@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GooseButtonDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.services.GooseButtonService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,17 +39,24 @@ public class ButtonController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseButtonDb.class);
-			return buttonService.inserisciButton(buttonInput);
+			buttonService.inserisciButton(buttonInput);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+
 		}
 	}
 
-	//TIPO: RESET/SEND
 	@GetMapping("/{formId}/{type}")
 	public ResponseEntity<Object> getButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
-		return buttonService.getButton(formId,type);
+		try {
+			return new ResponseEntity<>( buttonService.getButton(formId,type),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping("/modifica/{formId}/{type}")
@@ -58,16 +66,24 @@ public class ButtonController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseButtonDb.class);
-			return buttonService.modificaButton(buttonInput,type,formId);
+			buttonService.modificaButton(buttonInput,type,formId);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{formId}/{type}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
-		return buttonService.eliminaButton(formId,type);
+		try {
+			buttonService.eliminaButton(formId,type);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

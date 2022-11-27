@@ -1,13 +1,13 @@
 package it.riccardoriggi.gooseform.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import it.riccardoriggi.gooseform.constants.GooseErrors;
-import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseKControlDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseControlInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseKControlInterface;
 import it.riccardoriggi.gooseform.mapper.GooseKControlMapper;
@@ -26,54 +26,51 @@ public class GooseKControlService implements GooseKControlInterface {
 	GooseControlInterface serviceControl;
 
 	@Override
-	public ResponseEntity<Object> inserisci(GooseKControlDb kv) {
+	public void inserisci(GooseKControlDb kv) throws GooseFormException{
 
 		if(!serviceControl.esisteControllo(kv.getPkControl())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.CHIAMATA_HTTP_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.CHIAMATA_HTTP_NON_ESISTENTE);
 		}
 
 		try {
 			mapper.inserisci(kv);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
 			if(e.getMessage().contains("SQLIntegrityConstraintViolationException")){
-				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, "Chiave primaria duplicata");
 			}else {
-				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> getLista(int pkHttp) {
+	public List<GooseKControlDb> getLista(int pkHttp) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(mapper.getLista(pkHttp),HttpStatus.OK);
+			return mapper.getLista(pkHttp);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> elimina(int pkHttp, String k) {
+	public void elimina(int pkHttp, String k) throws GooseFormException{
 		try {
 			mapper.eliminaById(pkHttp,k);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> elimina(int pkHttp) {
+	public void elimina(int pkHttp) throws GooseFormException{
 		try {
 			mapper.elimina(pkHttp);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 

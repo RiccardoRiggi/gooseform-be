@@ -1,25 +1,26 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseControlDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseControlInterface {
 
-	ResponseEntity<Object> inserisciControllo(GooseControlDb controllo);
+	void inserisciControllo(GooseControlDb controllo) throws GooseFormException;
 
-	ResponseEntity<Object> modificaControllo(GooseControlDb controllo, int pk);
+	void modificaControllo(GooseControlDb controllo, int pk) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaControllo(int pk);
+	void eliminaControllo(int pk) throws GooseFormException;
 
-	ResponseEntity<Object> getControllo(int pk);
+	GooseControlDb getControllo(int pk) throws GooseFormException;
 
-	ResponseEntity<Object> getControlli(String formId);
+	List<GooseControlDb> getControlli(String formId) throws GooseFormException;
 
-	boolean esisteControllo(int pk);
+	boolean esisteControllo(int pk) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
-	boolean esistonoControlli(String formId, String componentId);
+	boolean esistonoControlli(String formId, String componentId) throws GooseFormException;
 
 }

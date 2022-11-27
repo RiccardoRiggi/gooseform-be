@@ -1,25 +1,24 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
-
 import it.riccardoriggi.gooseform.entity.db.GooseTooltipDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseTooltipInterface {
 
-	ResponseEntity<Object> inserisciTooltip(GooseTooltipDb form);
+	void inserisciTooltip(GooseTooltipDb form) throws GooseFormException;
 
-	ResponseEntity<Object> getTooltipById(String formId, String componentId);
+	GooseTooltipDb getTooltipById(String formId, String componentId) throws GooseFormException;
 
-	ResponseEntity<Object> getTooltipByFormId(String formId);
+	GooseTooltipDb getTooltipByFormId(String formId) throws GooseFormException;
 
-	ResponseEntity<Object> modificaTooltip(GooseTooltipDb button, int pk);
+	void modificaTooltip(GooseTooltipDb button, int pk) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaTooltip(int pk);
+	void eliminaTooltip(int pk) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
-	boolean esisteTooltipByFormId(String formId);
+	boolean esisteTooltipByFormId(String formId) throws GooseFormException;
 
-	boolean esisteTooltipById(String formId, String componentId);
+	boolean esisteTooltipById(String formId, String componentId) throws GooseFormException;
 
 }

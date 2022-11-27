@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GoosePopupDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.services.GoosePopupService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,21 +39,32 @@ public class PopupController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GoosePopupDb.class);
-			return popupService.inserisciPopup(buttonInput);
+			popupService.inserisciPopup(buttonInput);
+			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getPopupByFormId(HttpServletRequest request, @PathVariable("formId") String formId){
-		return popupService.getPopupByFormId(formId);
+		try {
+			return new ResponseEntity<Object>( popupService.getPopupByFormId(formId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{formId}/{componentId}")
 	public ResponseEntity<Object> getPopupById(HttpServletRequest request, @PathVariable("componentId") String componentId, @PathVariable("formId") String formId){
-		return popupService.getPopupById(formId,componentId);
+		try {
+			return new ResponseEntity<Object>(popupService.getPopupById(formId,componentId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping("/modifica/{pk}")
@@ -62,16 +74,24 @@ public class PopupController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GoosePopupDb.class);
-			return popupService.modificaPopup(buttonInput,pk);
+			popupService.modificaPopup(buttonInput,pk);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
-		return popupService.eliminaPopup(pk);
+		try {
+			popupService.eliminaPopup(pk);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

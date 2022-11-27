@@ -1,17 +1,18 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseKvComponentDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseKvComponentInterface {
 
-	ResponseEntity<Object> inserisci(GooseKvComponentDb kv);
+	void inserisci(GooseKvComponentDb kv) throws GooseFormException;
 
-	ResponseEntity<Object> getLista(String formId, String componentId);
+	List<GooseKvComponentDb> getLista(String formId, String componentId) throws GooseFormException;
 
-	ResponseEntity<Object> elimina(String formId, String componentId, String k);
+	void elimina(String formId, String componentId, String k) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
 }

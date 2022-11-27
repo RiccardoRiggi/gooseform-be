@@ -1,13 +1,11 @@
 package it.riccardoriggi.gooseform.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import it.riccardoriggi.gooseform.constants.GooseErrors;
-import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GoosePopupDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
 import it.riccardoriggi.gooseform.interfaces.GoosePopupInterface;
@@ -31,47 +29,46 @@ public class GoosePopupService implements GoosePopupInterface{
 	GooseComponentiInterface componentService;
 
 	@Override
-	public ResponseEntity<Object> inserisciPopup(GoosePopupDb button) {
+	public void inserisciPopup(GoosePopupDb button) throws GooseFormException{
 
 		if(button.getFormId()==null) {
-			return new ResponseEntity<Object>(new GooseProblem(500, "Il campo formId è richiesto"), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, "Il campo formId è richiesto");
 		}else if(!formService.isFormEsistente(button.getFormId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.FORM_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.FORM_NON_ESISTENTE);
 		}else if(button.getComponentId() != null && !componentService.isComponenteEsistente(button.getFormId(), button.getComponentId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.COMPONENTE_NON_ESISTENTE);
 		}
 
 		if(button.getComponentId()==null && esistePopupByFormId(button.getFormId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.POPUP_ESISTENTE_FORM), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.POPUP_ESISTENTE_FORM);
 		}else if(button.getComponentId()!=null && esistePopupById(button.getFormId(), button.getComponentId())) {
-			return new ResponseEntity<Object>(new GooseProblem(501, GooseErrors.POPUP_ESISTENTE_COMPONENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(501, GooseErrors.POPUP_ESISTENTE_COMPONENTE);
 		}
 
 		try {
 			mapper.inserisciPopup(button);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
 			if(e.getMessage().contains("SQLIntegrityConstraintViolationException")){
-				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, "Chiave primaria duplicata");
 			}else {
-				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> getPopupById(String formId, String componentId) {
+	public GoosePopupDb getPopupById(String formId, String componentId) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(mapper.getPopupById(formId,componentId),HttpStatus.OK);
+			return mapper.getPopupById(formId,componentId);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean esistePopupById(String formId, String componentId) {
+	public boolean esistePopupById(String formId, String componentId) throws GooseFormException{
 		boolean esiste = false;
 		try {
 			esiste = mapper.getPopupById(formId,componentId)!=null;
@@ -82,17 +79,17 @@ public class GoosePopupService implements GoosePopupInterface{
 	}
 
 	@Override
-	public ResponseEntity<Object> getPopupByFormId(String formId) {
+	public GoosePopupDb getPopupByFormId(String formId) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(mapper.getPopupByFormId(formId),HttpStatus.OK);
+			return mapper.getPopupByFormId(formId);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean esistePopupByFormId(String formId) {
+	public boolean esistePopupByFormId(String formId) throws GooseFormException{
 		boolean esiste = false;
 		try {
 			esiste = mapper.getPopupByFormId(formId) != null;
@@ -103,29 +100,27 @@ public class GoosePopupService implements GoosePopupInterface{
 	}
 
 	@Override
-	public ResponseEntity<Object> modificaPopup(GoosePopupDb button, int pk) {
+	public void modificaPopup(GoosePopupDb button, int pk) throws GooseFormException{
 		try {
 			mapper.updatPopup(button.getTitle(), button.getIcon(), button.getTextTooltip(), button.getDescription(), pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> eliminaPopup(int pk) {
+	public void eliminaPopup(int pk) throws GooseFormException{
 		try {
 			mapper.deletePopup(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
-			return new ResponseEntity<Object>(new GooseProblem(500,e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500,e.getMessage());
 		}
 	}
 
 	@Override
-	public void eliminazioneMassiva(String formId, String componentId) {
+	public void eliminazioneMassiva(String formId, String componentId) throws GooseFormException{
 		try {
 			if(componentId==null) {
 				mapper.deletePopupByFormId(formId);

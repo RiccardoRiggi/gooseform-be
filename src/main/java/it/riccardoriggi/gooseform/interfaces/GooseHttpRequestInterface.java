@@ -1,27 +1,26 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
-
 import it.riccardoriggi.gooseform.entity.db.GooseHttpRequestDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseHttpRequestInterface {
 
-	ResponseEntity<Object> inserisciChiamata(GooseHttpRequestDb chiamata);
+	void inserisciChiamata(GooseHttpRequestDb chiamata) throws GooseFormException;
 
-	ResponseEntity<Object> modificaChiamata(GooseHttpRequestDb chiamata, int id);
+	void modificaChiamata(GooseHttpRequestDb chiamata, int id) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaChiamata(int id);
+	void eliminaChiamata(int id) throws GooseFormException;
 
-	ResponseEntity<Object> getChiamataById(String formId, String componentId);
+	GooseHttpRequestDb getChiamataById(String formId, String componentId) throws GooseFormException;
 
-	ResponseEntity<Object> getChiamataByFormId(String formId, String typeSpecific);
+	GooseHttpRequestDb getChiamataByFormId(String formId, String typeSpecific) throws GooseFormException;
 
-	ResponseEntity<Object> getChiamataByPk(int pk);
+	GooseHttpRequestDb getChiamataByPk(int pk) throws GooseFormException;
 
-	boolean esisteChiamata(int pk);
+	boolean esisteChiamata(int pk) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
-	boolean isChiamataEsistente(String formId, String componentId);
+	boolean isChiamataEsistente(String formId, String componentId) throws GooseFormException;
 
 }

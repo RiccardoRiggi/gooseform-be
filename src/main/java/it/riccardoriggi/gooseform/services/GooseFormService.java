@@ -1,12 +1,12 @@
 package it.riccardoriggi.gooseform.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseFormDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseButtonInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseControlInterface;
@@ -52,7 +52,7 @@ public class GooseFormService implements GooseFormInterface {
 
 
 	@Override
-	public boolean isFormEsistente(String formId) {
+	public boolean isFormEsistente(String formId) throws GooseFormException{
 		boolean esiste = false;
 		try {
 			esiste = formMapper.getFormById(formId) != null;
@@ -63,57 +63,53 @@ public class GooseFormService implements GooseFormInterface {
 	}
 
 	@Override
-	public ResponseEntity<Object> inserisciForm(GooseFormDb form) {
+	public void inserisciForm(GooseFormDb form) throws GooseFormException{
 		try {
 			formMapper.inserisciForm(form);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
 			if (e.getMessage().contains("SQLIntegrityConstraintViolationException")) {
-				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"),
-						HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, "Chiave primaria duplicata");
 			} else {
-				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()),
-						HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, e.getMessage());
 			}
 		}
 
 	}
 
 	@Override
-	public ResponseEntity<Object> getFormById(String formId) {
+	public GooseFormDb getFormById(String formId) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(formMapper.getFormById(formId), HttpStatus.OK);
+			return formMapper.getFormById(formId);
 		} catch (Exception e) {
 			log.error("Errore durante la ricerca in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 
 	}
 
 	@Override
-	public ResponseEntity<Object> getListaForm() {
+	public List<GooseFormDb> getListaForm() throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(formMapper.getForms(), HttpStatus.OK);
+			return formMapper.getForms();
 		} catch (Exception e) {
 			log.error("Errore durante la ricerca in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> modificaForm(GooseFormDb form, String formId) {
+	public void modificaForm(GooseFormDb form, String formId) throws GooseFormException{
 		try {
 			formMapper.updateForm(form.getTitle(), form.getIcon(), form.getDescription(), formId);
-			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante la ricerca in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> eliminaForm(String formId) {
+	public void eliminaForm(String formId) throws GooseFormException{
 		try {
 
 			componentiService.eliminazioneMassiva(formId);
@@ -124,12 +120,9 @@ public class GooseFormService implements GooseFormInterface {
 			httpService.eliminazioneMassiva(formId, null);
 			formMapper.deleteForm(formId);
 
-
-
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante la ricerca in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 
 	}

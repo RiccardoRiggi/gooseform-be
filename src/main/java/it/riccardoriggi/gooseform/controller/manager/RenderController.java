@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GooseRenderDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseRenderInterface;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,21 +39,32 @@ public class RenderController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseRenderDb.class);
-			return service.inserisciRender(buttonInput);
+			service.inserisciRender(buttonInput);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/lista/{formId}")
 	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("formId") String formId){
-		return service.getRenders(formId);
+		try {
+			return new ResponseEntity<Object>( service.getRenders(formId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{pk}")
 	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("pk") int pk){
-		return service.getRender(pk);
+		try {
+			return new ResponseEntity<Object>( service.getRender(pk),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping("/modifica/{pk}")
@@ -62,16 +74,24 @@ public class RenderController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseRenderDb.class);
-			return  service.modificaRender(buttonInput,pk);
+			service.modificaRender(buttonInput,pk);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
-		return service.eliminaRender(pk);
+		try {
+			service.eliminaRender(pk);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

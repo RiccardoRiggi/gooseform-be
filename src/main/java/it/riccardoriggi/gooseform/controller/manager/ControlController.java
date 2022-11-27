@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GooseControlDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseControlInterface;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,21 +39,32 @@ public class ControlController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseControlDb.class);
-			return controlService.inserisciControllo(buttonInput);
+			controlService.inserisciControllo(buttonInput);
+			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/lista/{formId}")
 	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("formId") String formId){
-		return controlService.getControlli(formId);
+		try {
+			return new ResponseEntity<Object>( controlService.getControlli(formId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{pk}")
 	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("pk") int pk){
-		return controlService.getControllo(pk);
+		try {
+			return new ResponseEntity<Object>( controlService.getControllo(pk),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping("/modifica/{pk}")
@@ -62,16 +74,24 @@ public class ControlController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseControlDb.class);
-			return  controlService.modificaControllo(buttonInput,pk);
+			controlService.modificaControllo(buttonInput,pk);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
-		return controlService.eliminaControllo(pk);
+		try {
+			controlService.eliminaControllo(pk);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

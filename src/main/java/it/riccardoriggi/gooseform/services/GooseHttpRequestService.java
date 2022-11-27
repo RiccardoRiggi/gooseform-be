@@ -1,13 +1,11 @@
 package it.riccardoriggi.gooseform.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import it.riccardoriggi.gooseform.constants.GooseErrors;
-import it.riccardoriggi.gooseform.entity.GooseProblem;
 import it.riccardoriggi.gooseform.entity.db.GooseHttpRequestDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.interfaces.GooseComponentiInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseFormInterface;
 import it.riccardoriggi.gooseform.interfaces.GooseHttpRequestInterface;
@@ -36,66 +34,63 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 	GooseKvHttpRequestInterface kvHttpService;
 
 	@Override
-	public ResponseEntity<Object> inserisciChiamata(GooseHttpRequestDb chiamata) {
+	public void inserisciChiamata(GooseHttpRequestDb chiamata) throws GooseFormException{
 
 		if(chiamata.getFormId()==null) {
-			return new ResponseEntity<Object>(new GooseProblem(500, "Il campo formId è richiesto"), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, "Il campo formId è richiesto");
 		}else if(!formService.isFormEsistente(chiamata.getFormId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.FORM_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.FORM_NON_ESISTENTE);
 		}else if(chiamata.getComponentId() != null && !componentService.isComponenteEsistente(chiamata.getFormId(), chiamata.getComponentId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, GooseErrors.COMPONENTE_NON_ESISTENTE), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, GooseErrors.COMPONENTE_NON_ESISTENTE);
 		}else if(isChiamataEsistente(chiamata.getFormId(), chiamata.getComponentId())) {
-			return new ResponseEntity<Object>(new GooseProblem(500, "CHIAMATA ESISTENTE"), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, "CHIAMATA ESISTENTE");
 		}
 
 		try {
 			chiamataMapper.inserisciChiamata(chiamata);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
 			if(e.getMessage().contains("SQLIntegrityConstraintViolationException")){
-				return new ResponseEntity<Object>(new GooseProblem(500, "Chiave primaria duplicata"), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, "Chiave primaria duplicata");
 			}else {
-				return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+				throw new GooseFormException(500, e.getMessage());
 			}
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> modificaChiamata(GooseHttpRequestDb chiamata, int pk) {
+	public void modificaChiamata(GooseHttpRequestDb chiamata, int pk) throws GooseFormException{
 		try {
 			chiamataMapper.updateChiamata(chiamata.getUrl(), chiamata.getMethod(), chiamata.getBody(), pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> eliminaChiamata(int pk) {
+	public void eliminaChiamata(int pk) throws GooseFormException{
 		try {
 			kvHttpService.elimina(pk);
 			chiamataMapper.deleteChiamata(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> getChiamataById(String formId, String componentId) {
+	public GooseHttpRequestDb getChiamataById(String formId, String componentId) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(chiamataMapper.getChiamataById(formId, componentId), HttpStatus.OK);
+			return chiamataMapper.getChiamataById(formId, componentId);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean isChiamataEsistente(String formId, String componentId) {
+	public boolean isChiamataEsistente(String formId, String componentId) throws GooseFormException{
 		boolean esiste = false;
 		try {
 			esiste = chiamataMapper.getChiamataById(formId, componentId) != null;
@@ -106,27 +101,27 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 	}
 
 	@Override
-	public ResponseEntity<Object> getChiamataByFormId(String formId, String typeSpecific) {
+	public GooseHttpRequestDb getChiamataByFormId(String formId, String typeSpecific) throws GooseFormException{
 		try {
-			return new ResponseEntity<Object>(chiamataMapper.getChiamataByFormId(formId, typeSpecific), HttpStatus.OK);
+			return chiamataMapper.getChiamataByFormId(formId, typeSpecific);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public ResponseEntity<Object> getChiamataByPk(int pk) {
+	public GooseHttpRequestDb getChiamataByPk(int pk) throws GooseFormException {
 		try {
-			return new ResponseEntity<Object>(chiamataMapper.getChiamataByPk(pk), HttpStatus.OK);
+			return chiamataMapper.getChiamataByPk(pk);
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_FORM: ", e);
-			return new ResponseEntity<Object>(new GooseProblem(500, e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new GooseFormException(500, e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean esisteChiamata(int pk) {
+	public boolean esisteChiamata(int pk) throws GooseFormException{
 		boolean esiste=false;
 		try {
 			esiste = chiamataMapper.getChiamataByPk(pk)!=null;
@@ -137,7 +132,7 @@ public class GooseHttpRequestService implements GooseHttpRequestInterface {
 	}
 
 	@Override
-	public void eliminazioneMassiva(String formId, String componentId) {
+	public void eliminazioneMassiva(String formId, String componentId) throws GooseFormException{
 		try {
 
 			if(componentId==null) {

@@ -1,20 +1,21 @@
 package it.riccardoriggi.gooseform.interfaces;
 
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 import it.riccardoriggi.gooseform.entity.db.GooseComponentSpecificDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 
 public interface GooseComponentSpecificiInterface {
 
-	ResponseEntity<Object> insericiRiga(GooseComponentSpecificDb riga);
+	void insericiRiga(GooseComponentSpecificDb riga) throws GooseFormException;
 
-	ResponseEntity<Object> eliminaRiga(String formId, String id, String nomeAttributo);
+	void eliminaRiga(String formId, String id, String nomeAttributo) throws GooseFormException;
 
-	ResponseEntity<Object> getRiga(String formId, String id, String nomeAttributo);
+	GooseComponentSpecificDb getRiga(String formId, String id, String nomeAttributo) throws GooseFormException;
 
-	ResponseEntity<Object> getRighe(String formId, String id);
+	List<GooseComponentSpecificDb> getRighe(String formId, String id) throws GooseFormException;
 
-	void eliminazioneMassiva(String formId, String componentId);
+	void eliminazioneMassiva(String formId, String componentId) throws GooseFormException;
 
 
 }

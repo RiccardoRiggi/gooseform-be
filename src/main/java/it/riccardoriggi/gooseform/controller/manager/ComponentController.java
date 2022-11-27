@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import it.riccardoriggi.gooseform.entity.db.GooseComponentDb;
+import it.riccardoriggi.gooseform.exceptions.GooseFormException;
 import it.riccardoriggi.gooseform.services.GooseComponentService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,21 +39,32 @@ public class ComponentController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseComponentDb.class);
-			return componentService.inserisciComponente(buttonInput);
+			componentService.inserisciComponente(buttonInput);
+			return new ResponseEntity<Object>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{id}")
 	public ResponseEntity<Object> getComponent(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
-		return componentService.getComponent(formId,id);
+		try {
+			return new ResponseEntity<Object>( componentService.getComponent(formId,id),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("formId") String formId){
-		return componentService.getComponenti(formId);
+		try {
+			return new ResponseEntity<Object>( componentService.getComponenti(formId),HttpStatus.OK);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping("/modifica/{formId}/{id}")
@@ -62,16 +74,24 @@ public class ComponentController {
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseComponentDb.class);
-			return componentService.modificaComponente(buttonInput,formId,id);
+			componentService.modificaComponente(buttonInput,formId,id);
+			return new ResponseEntity<Object>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{formId}/{id}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
-		return componentService.eliminaComponente(formId,id);
+		try {
+			componentService.eliminaComponente(formId,id);
+			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} catch (GooseFormException e) {
+			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }
