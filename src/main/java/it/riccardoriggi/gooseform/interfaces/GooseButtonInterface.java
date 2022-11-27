@@ -7,7 +7,7 @@ public interface GooseButtonInterface {
 
 	public void inserisciButton(GooseButtonDb form) throws GooseFormException;
 
-	public GooseButtonDb getButton(String type, String formId) throws GooseFormException;
+	public GooseButtonDb getButton(String formId, String type) throws GooseFormException;
 
 	public void modificaButton(GooseButtonDb button, String type, String formId) throws GooseFormException;
 
