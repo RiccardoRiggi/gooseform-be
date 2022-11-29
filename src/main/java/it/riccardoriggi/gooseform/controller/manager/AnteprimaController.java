@@ -94,23 +94,20 @@ public class AnteprimaController {
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getAnteprimaForm(HttpServletRequest request,@PathVariable("formId") String formId){
+		log.debug("AnteprimaController - getAnteprimaForm");
+		log.debug("formId: "+formId);
 
 		try {
 			verificaEsistenzaForm(formId);
-
 			GooseForm form = getForm(formId);
 			form.setResetButton(getResetButton(formId));
 			form.setSendButton(getSendButton(formId));
 			form.setPopup(getPopup(formId));
 			form.setDestinationUrl(getHttpRequestDestination(formId));
 			form.setOriginUrl(getHttpRequestOrigin(formId));
-
-
 			form.setComponents(getComponents(formId));
-
 			form.setControls(getControls(formId));
 			form.setRenders(getRenders(formId));
-
 			return new ResponseEntity<>(form,HttpStatus.OK);
 		} catch (GooseFormException e) {
 			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -119,58 +116,63 @@ public class AnteprimaController {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	private void verificaEsistenzaForm(String formId) throws GooseFormException {
+		log.debug("AnteprimaController - verificaEsistenzaForm");
+		log.debug("formId: "+formId);
 		if(!formService.isFormEsistente(formId)) {
 			throw new GooseFormException(500, GooseErrors.FORM_NON_ESISTENTE);
 		}
 	}
 
 	private GooseForm getForm(String formId) throws GooseFormException{
+		log.debug("AnteprimaController - getForm");
+		log.debug("formId: "+formId);
 		GooseFormDb formDb = formService.getFormById(formId);
 		return GooseConversionUtil.toGooseForm(formDb);
 	}
 
 	private GooseButton getResetButton(String formId) throws GooseFormException{
+		log.debug("AnteprimaController - getResetButton");
+		log.debug("formId: "+formId);
 		GooseButtonDb formDb = buttonService.getButton( formId,"RESET");
 		return GooseConversionUtil.toGooseButton(formDb);
 	}
 
 	private GooseButton getSendButton(String formId) throws GooseFormException{
+		log.debug("AnteprimaController - getSendButton");
+		log.debug("formId: "+formId);
 		GooseButtonDb formDb = buttonService.getButton(formId,"SEND");
 		return GooseConversionUtil.toGooseButton(formDb);
 	}
 
 	private GoosePopup getPopup(String formId) throws GooseFormException{
+		log.debug("AnteprimaController - getPopup");
+		log.debug("formId: "+formId);
 		GoosePopupDb formDb = popupService.getPopupByFormId(formId);
 		return GooseConversionUtil.toGoosePopup(formDb);
 	}
 
 	private GoosePopup getPopup(String formId, String componentId) throws GooseFormException{
+		log.debug("AnteprimaController - getPopup");
+		log.debug("formId: "+formId);
+		log.debug("formId: "+componentId);
 		GoosePopupDb formDb = popupService.getPopupById(formId, componentId);
 		return GooseConversionUtil.toGoosePopup(formDb);
 	}
 
 	private GooseTooltip getTooltip(String formId, String componentId) throws GooseFormException{
+		log.debug("AnteprimaController - getTooltip");
+		log.debug("formId: "+formId);
+		log.debug("formId: "+componentId);
 		GooseTooltipDb formDb = tooltipService.getTooltipById(formId, componentId);
 		return GooseConversionUtil.toGooseTooltip(formDb);
 	}
 
 	private GooseHttpRequest getHttpRequestDestination(String formId) throws GooseFormException {
+		log.debug("AnteprimaController - getHttpRequestDestination");
+		log.debug("formId: "+formId);
 		GooseHttpRequestDb chiamataDb = httpService.getChiamataByFormId(formId, "SUBMIT");
-		List<GooseKvHttpRequestDb> lista = new ArrayList<GooseKvHttpRequestDb>();
+		List<GooseKvHttpRequestDb> lista = new ArrayList<>();
 		if(chiamataDb!=null) {
 			lista = kvHttpService.getLista(chiamataDb.getPk());
 		}
@@ -180,7 +182,7 @@ public class AnteprimaController {
 
 	private GooseHttpRequest getHttpRequestOrigin(String formId) throws GooseFormException {
 		GooseHttpRequestDb chiamataDb = httpService.getChiamataByFormId(formId, "DATA");
-		List<GooseKvHttpRequestDb> lista = new ArrayList<GooseKvHttpRequestDb>();
+		List<GooseKvHttpRequestDb> lista = new ArrayList<>();
 		if(chiamataDb!=null) {
 			lista = kvHttpService.getLista(chiamataDb.getPk());
 		}

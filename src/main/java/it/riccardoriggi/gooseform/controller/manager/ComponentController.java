@@ -32,65 +32,82 @@ public class ComponentController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisciComponent(HttpServletRequest request){
+		log.debug("ComponentController - inserisciComponent");
 		ObjectMapper mapper = new ObjectMapper();
 		GooseComponentDb buttonInput = new GooseComponentDb();
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseComponentDb.class);
+			log.debug("body: "+buttonInput);
 			componentService.inserisciComponente(buttonInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{id}")
 	public ResponseEntity<Object> getComponent(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
+		log.debug("ComponentController - getComponent");
+		log.debug("formId: "+formId);
+		log.debug("id: "+id);
+
 		try {
-			return new ResponseEntity<Object>( componentService.getComponent(formId,id),HttpStatus.OK);
+			return new ResponseEntity<>(componentService.getComponent(formId,id),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("ComponentController - getComponents");
+		log.debug("formId: "+formId);
+
 		try {
-			return new ResponseEntity<Object>( componentService.getComponenti(formId),HttpStatus.OK);
+			return new ResponseEntity<>( componentService.getComponenti(formId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{formId}/{id}")
-	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> modificaComponent(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
+		log.debug("ComponentController - modificaComponent");
+		log.debug("formId: "+formId);
+		log.debug("id: "+id);
+
 		ObjectMapper mapper = new ObjectMapper();
 		GooseComponentDb buttonInput= new GooseComponentDb();
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseComponentDb.class);
+			log.debug("body: "+buttonInput);
 			componentService.modificaComponente(buttonInput,formId,id);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{formId}/{id}")
-	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> eliminaComponent(HttpServletRequest request, @PathVariable("id") String id, @PathVariable("formId") String formId){
+		log.debug("ComponentController - eliminaComponent");
+		log.debug("formId: "+formId);
+		log.debug("id: "+id);
+
 		try {
 			componentService.eliminaComponente(formId,id);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

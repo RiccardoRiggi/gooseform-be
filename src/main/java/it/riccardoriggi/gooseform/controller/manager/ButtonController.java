@@ -33,12 +33,14 @@ public class ButtonController {
 
 	@PostMapping("/inserisci")
 	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
+		log.debug("ButtonController - inserisciForm");
 
 		ObjectMapper mapper = new ObjectMapper();
 		GooseButtonDb buttonInput = new GooseButtonDb();
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseButtonDb.class);
+			log.debug("body: "+buttonInput.toString());
 			buttonService.inserisciButton(buttonInput);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
@@ -52,6 +54,9 @@ public class ButtonController {
 
 	@GetMapping("/{formId}/{type}")
 	public ResponseEntity<Object> getButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
+		log.debug("ButtonController - getButton");
+		log.debug("formId: "+formId);
+		log.debug("type: "+type);
 		try {
 			return new ResponseEntity<>( buttonService.getButton(formId,type),HttpStatus.OK);
 		} catch (GooseFormException e) {
@@ -61,11 +66,15 @@ public class ButtonController {
 
 	@PutMapping("/modifica/{formId}/{type}")
 	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
+		log.debug("ButtonController - modificaButton");
+		log.debug("formId: "+formId);
+		log.debug("type: "+type);
 		ObjectMapper mapper = new ObjectMapper();
 		GooseButtonDb buttonInput= new GooseButtonDb();
 
 		try {
 			buttonInput = mapper.readValue(request.getReader(), GooseButtonDb.class);
+			log.debug("body: "+buttonInput.toString());
 			buttonService.modificaButton(buttonInput,type,formId);
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
@@ -78,6 +87,9 @@ public class ButtonController {
 
 	@DeleteMapping("/elimina/{formId}/{type}")
 	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("type") String type, @PathVariable("formId") String formId){
+		log.debug("ButtonController - eliminaButton");
+		log.debug("formId: "+formId);
+		log.debug("type: "+type);
 		try {
 			buttonService.eliminaButton(formId,type);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
