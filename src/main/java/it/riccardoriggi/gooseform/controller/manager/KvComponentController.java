@@ -31,40 +31,48 @@ public class KvComponentController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisci(HttpServletRequest request){
+		log.debug("KvComponentController - inserisci");
 		ObjectMapper mapper = new ObjectMapper();
-		GooseKvComponentDb formInput = new GooseKvComponentDb();
+		GooseKvComponentDb input = new GooseKvComponentDb();
 
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseKvComponentDb.class);
-			service.inserisci(formInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			input = mapper.readValue(request.getReader(), GooseKvComponentDb.class);
+			log.debug("body: "+input);
+			service.inserisci(input);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{componentId}")
-	public ResponseEntity<Object> getChiamataById(HttpServletRequest request,@PathVariable("formId") String formId,@PathVariable("componentId") String componentId){
+	public ResponseEntity<Object> get(HttpServletRequest request,@PathVariable("formId") String formId,@PathVariable("componentId") String componentId){
+		log.debug("KvComponentController - get");
+		log.debug("formId "+formId);
+		log.debug("componentId "+componentId);
 		try {
-			return new ResponseEntity<Object>( service.getLista(formId, componentId),HttpStatus.OK);
+			return new ResponseEntity<>( service.getLista(formId, componentId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 
 	@DeleteMapping("/elimina/{formId}/{componentId}/{k}")
 	public ResponseEntity<Object> eliminaFormByPk(HttpServletRequest request, @PathVariable("formId") String formId,@PathVariable("componentId") String componentId,@PathVariable("k") String k){
+		log.debug("KvComponentController - get");
+		log.debug("formId "+formId);
+		log.debug("componentId "+componentId);
+		log.debug("k "+k);
 		try {
 			service.elimina(formId,componentId,k);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

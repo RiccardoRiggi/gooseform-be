@@ -32,65 +32,75 @@ public class RenderController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisciRender(HttpServletRequest request){
+		log.debug("RenderController - inserisciRender");
 		ObjectMapper mapper = new ObjectMapper();
-		GooseRenderDb buttonInput = new GooseRenderDb();
+		GooseRenderDb input = new GooseRenderDb();
 
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GooseRenderDb.class);
-			service.inserisciRender(buttonInput);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GooseRenderDb.class);
+			log.debug("body "+input);
+			service.inserisciRender(input);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/lista/{formId}")
-	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> getRenders(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("RenderController - getRenders");
+		log.debug("formId "+formId);
 		try {
-			return new ResponseEntity<Object>( service.getRenders(formId),HttpStatus.OK);
+			return new ResponseEntity<>( service.getRenders(formId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{pk}")
-	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> getRender(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("RenderController - getRenders");
+		log.debug("pk "+pk);
 		try {
-			return new ResponseEntity<Object>( service.getRender(pk),HttpStatus.OK);
+			return new ResponseEntity<>( service.getRender(pk),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{pk}")
-	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> modificaRender(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("RenderController - modificaRender");
+		log.debug("pk "+pk);
 		ObjectMapper mapper = new ObjectMapper();
-		GooseRenderDb buttonInput= new GooseRenderDb();
+		GooseRenderDb input= new GooseRenderDb();
 
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GooseRenderDb.class);
-			service.modificaRender(buttonInput,pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GooseRenderDb.class);
+			log.debug("body "+input);
+			service.modificaRender(input,pk);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
-	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> eliminaRender(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("RenderController - eliminaRender");
+		log.debug("pk "+pk);
 		try {
 			service.eliminaRender(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

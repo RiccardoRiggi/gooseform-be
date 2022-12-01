@@ -33,24 +33,28 @@ public class FormController {
 
 	@PostMapping("/inserisci")
 	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
+		log.debug("FormController - inserisciForm");
 
 		ObjectMapper mapper = new ObjectMapper();
 		GooseFormDb formInput = new GooseFormDb();
 
 		try {
 			formInput = mapper.readValue(request.getReader(), GooseFormDb.class);
+			log.debug("body "+formInput);
 			formService.inserisciForm(formInput);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getFormById(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("FormController - getFormById");
+		log.debug("formId "+formId);
 		try {
 			return new ResponseEntity<>( formService.getFormById(formId),HttpStatus.OK);
 		} catch (GooseFormException e) {
@@ -60,37 +64,43 @@ public class FormController {
 
 	@GetMapping("/")
 	public ResponseEntity<Object> getForms(HttpServletRequest request){
+		log.debug("FormController - getForms");
 		try {
-			return new ResponseEntity<Object>( formService.getListaForm(),HttpStatus.OK);
+			return new ResponseEntity<>( formService.getListaForm(),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{formId}")
 	public ResponseEntity<Object> modificaForm(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("FormController - modificaForm");
+		log.debug("formId "+formId);
 		ObjectMapper mapper = new ObjectMapper();
 		GooseFormDb formInput = new GooseFormDb();
 
 		try {
 			formInput = mapper.readValue(request.getReader(), GooseFormDb.class);
+			log.debug("body: "+formInput);
 			formService.modificaForm(formInput,formId);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{formId}")
-	public ResponseEntity<Object> eliminaFormByPk(HttpServletRequest request, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> eliminaFormById(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("FormController - eliminaFormById");
+		log.debug("formId "+formId);
 		try {
 			formService.eliminaForm(formId);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

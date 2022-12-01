@@ -31,40 +31,46 @@ public class KControlController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisci(HttpServletRequest request){
+		log.debug("KControlController - inserisci");
 		ObjectMapper mapper = new ObjectMapper();
-		GooseKControlDb formInput = new GooseKControlDb();
+		GooseKControlDb input = new GooseKControlDb();
 
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseKControlDb.class);
-			service.inserisci(formInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			input = mapper.readValue(request.getReader(), GooseKControlDb.class);
+			log.debug("body: "+input);
+			service.inserisci(input);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{pkControl}")
 	public ResponseEntity<Object> getChiamataById(HttpServletRequest request,@PathVariable("pkControl") int pkControl){
+		log.debug("KControlController - getChiamataById");
+		log.debug("pkControl "+pkControl);
 		try {
-			return new ResponseEntity<Object>( service.getLista(pkControl),HttpStatus.OK);
+			return new ResponseEntity<>( service.getLista(pkControl),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 
 	@DeleteMapping("/elimina/{pkControl}/{k}")
 	public ResponseEntity<Object> eliminaFormByPk(HttpServletRequest request, @PathVariable("pkControl") int pkControl,@PathVariable("k") String k){
+		log.debug("KControlController - getChiamataById");
+		log.debug("pkControl "+pkControl);
+		log.debug("k "+k);
 		try {
 			service.elimina(pkControl,k);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

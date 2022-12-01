@@ -31,40 +31,45 @@ public class KvHttpRequestController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisci(HttpServletRequest request){
+		log.debug("KvHttpRequestController - inserisci");
 		ObjectMapper mapper = new ObjectMapper();
-		GooseKvHttpRequestDb formInput = new GooseKvHttpRequestDb();
-
+		GooseKvHttpRequestDb input = new GooseKvHttpRequestDb();
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseKvHttpRequestDb.class);
-			service.inserisci(formInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			input = mapper.readValue(request.getReader(), GooseKvHttpRequestDb.class);
+			log.debug("body "+input);
+			service.inserisci(input);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{pkHttp}")
-	public ResponseEntity<Object> getChiamataById(HttpServletRequest request,@PathVariable("pkHttp") int pkHttp){
+	public ResponseEntity<Object> get(HttpServletRequest request,@PathVariable("pkHttp") int pkHttp){
+		log.debug("KvHttpRequestController - get");
+		log.debug("pkHttp "+pkHttp);
 		try {
-			return new ResponseEntity<Object>(service.getLista(pkHttp),HttpStatus.OK);
+			return new ResponseEntity<>(service.getLista(pkHttp),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 
 	@DeleteMapping("/elimina/{pkHttp}/{k}")
-	public ResponseEntity<Object> eliminaFormByPk(HttpServletRequest request, @PathVariable("pkHttp") int pkHttp,@PathVariable("k") String k){
+	public ResponseEntity<Object> elimina(HttpServletRequest request, @PathVariable("pkHttp") int pkHttp,@PathVariable("k") String k){
+		log.debug("KvHttpRequestController - elimina");
+		log.debug("pkHttp "+pkHttp);
+		log.debug("k "+k);
 		try {
 			service.elimina(pkHttp,k);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

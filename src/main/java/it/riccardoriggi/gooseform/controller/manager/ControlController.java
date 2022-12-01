@@ -32,65 +32,75 @@ public class ControlController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
+	public ResponseEntity<Object> inserisciControllo(HttpServletRequest request){
+		log.debug("ControlController - inserisciControllo");
 
 		ObjectMapper mapper = new ObjectMapper();
-		GooseControlDb buttonInput = new GooseControlDb();
+		GooseControlDb input = new GooseControlDb();
 
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GooseControlDb.class);
-			controlService.inserisciControllo(buttonInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			input = mapper.readValue(request.getReader(), GooseControlDb.class);
+			log.debug("body "+input);
+			controlService.inserisciControllo(input);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/lista/{formId}")
-	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> getControlli(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("ControlController - getControlli");
+		log.debug("formId "+formId);
 		try {
-			return new ResponseEntity<Object>( controlService.getControlli(formId),HttpStatus.OK);
+			return new ResponseEntity<>( controlService.getControlli(formId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{pk}")
-	public ResponseEntity<Object> getComponents(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> getControllo(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("ControlController - getControllo");
+		log.debug("pk "+pk);
 		try {
-			return new ResponseEntity<Object>( controlService.getControllo(pk),HttpStatus.OK);
+			return new ResponseEntity<>( controlService.getControllo(pk),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{pk}")
-	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> modificaControllo(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("ControlController - modificaControllo");
+		log.debug("pk "+pk);
 		ObjectMapper mapper = new ObjectMapper();
-		GooseControlDb buttonInput= new GooseControlDb();
-
+		GooseControlDb input= new GooseControlDb();
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GooseControlDb.class);
-			controlService.modificaControllo(buttonInput,pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GooseControlDb.class);
+			log.debug("body "+input);
+			controlService.modificaControllo(input,pk);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
-	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> eliminaControllo(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("ControlController - eliminaControllo");
+		log.debug("pk "+pk);
 		try {
 			controlService.eliminaControllo(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

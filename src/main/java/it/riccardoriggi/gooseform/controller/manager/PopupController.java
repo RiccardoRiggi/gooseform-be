@@ -32,65 +32,76 @@ public class PopupController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisci(HttpServletRequest request){
+		log.debug("PopupController - inserisci");
 		ObjectMapper mapper = new ObjectMapper();
-		GoosePopupDb buttonInput = new GoosePopupDb();
+		GoosePopupDb input = new GoosePopupDb();
 
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GoosePopupDb.class);
-			popupService.inserisciPopup(buttonInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			input = mapper.readValue(request.getReader(), GoosePopupDb.class);
+			log.debug("body "+input);
+			popupService.inserisciPopup(input);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}")
 	public ResponseEntity<Object> getPopupByFormId(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("PopupController - getPopupByFormId");
+		log.debug("formId "+formId);
 		try {
-			return new ResponseEntity<Object>( popupService.getPopupByFormId(formId),HttpStatus.OK);
+			return new ResponseEntity<>( popupService.getPopupByFormId(formId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{componentId}")
 	public ResponseEntity<Object> getPopupById(HttpServletRequest request, @PathVariable("componentId") String componentId, @PathVariable("formId") String formId){
+		log.debug("PopupController - getPopupByFormId");
+		log.debug("formId "+formId);
+		log.debug("componentId "+componentId);
 		try {
-			return new ResponseEntity<Object>(popupService.getPopupById(formId,componentId),HttpStatus.OK);
+			return new ResponseEntity<>(popupService.getPopupById(formId,componentId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{pk}")
-	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> modificaPopup(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("PopupController - modificaPopup");
+		log.debug("pk "+pk);
 		ObjectMapper mapper = new ObjectMapper();
-		GoosePopupDb buttonInput= new GoosePopupDb();
+		GoosePopupDb input= new GoosePopupDb();
 
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GoosePopupDb.class);
-			popupService.modificaPopup(buttonInput,pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GoosePopupDb.class);
+			log.debug("body "+input);
+			popupService.modificaPopup(input,pk);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
-	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> eliminaPopup(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("PopupController - eliminaPopup");
+		log.debug("pk "+pk);
 		try {
 			popupService.eliminaPopup(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

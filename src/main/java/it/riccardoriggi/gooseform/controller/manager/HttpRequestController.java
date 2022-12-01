@@ -32,74 +32,89 @@ public class HttpRequestController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
+	public ResponseEntity<Object> inserisciChiamata(HttpServletRequest request){
+		log.debug("HttpRequestController - inserisciChiamata");
 
 		ObjectMapper mapper = new ObjectMapper();
-		GooseHttpRequestDb formInput = new GooseHttpRequestDb();
+		GooseHttpRequestDb input = new GooseHttpRequestDb();
 
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseHttpRequestDb.class);
-			chiamataService.inserisciChiamata(formInput);
-			return new ResponseEntity<Object>(HttpStatus.CREATED);
+			input = mapper.readValue(request.getReader(), GooseHttpRequestDb.class);
+			log.debug("body: "+input);
+			chiamataService.inserisciChiamata(input);
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/pk/{pk}")
 	public ResponseEntity<Object> getChiamataByPk(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("HttpRequestController - inserisciChiamata");
+		log.debug("pk "+pk);
 		try {
-			return new ResponseEntity<Object>( chiamataService.getChiamataByPk(pk), HttpStatus.OK);
+			return new ResponseEntity<>( chiamataService.getChiamataByPk(pk), HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{componentId}")
 	public ResponseEntity<Object> getChiamataById(HttpServletRequest request,@PathVariable("formId") String formId,@PathVariable("componentId") String componentId){
+		log.debug("HttpRequestController - getChiamataById");
+		log.debug("formId "+formId);
+		log.debug("componentId "+componentId);
 		try {
-			return new ResponseEntity<Object>( chiamataService.getChiamataById(formId, componentId),HttpStatus.OK);
+			return new ResponseEntity<>( chiamataService.getChiamataById(formId, componentId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/form/{typeSpecific}/{formId}")
 	public ResponseEntity<Object> getChiamataByFormId(HttpServletRequest request,@PathVariable("formId") String formId, @PathVariable("typeSpecific") String typeSpecific){
+		log.debug("HttpRequestController - getChiamataByFormId");
+		log.debug("formId "+formId);
+		log.debug("typeSpecific "+typeSpecific);
 		try {
-			return new ResponseEntity<Object>( chiamataService.getChiamataByFormId(formId,typeSpecific),HttpStatus.OK);
+			return new ResponseEntity<>( chiamataService.getChiamataByFormId(formId,typeSpecific),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{pk}")
 	public ResponseEntity<Object> modificaForm(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("HttpRequestController - modificaForm");
+		log.debug("pk "+pk);
 		ObjectMapper mapper = new ObjectMapper();
-		GooseHttpRequestDb formInput = new GooseHttpRequestDb();
+		GooseHttpRequestDb input = new GooseHttpRequestDb();
 
 		try {
-			formInput = mapper.readValue(request.getReader(), GooseHttpRequestDb.class);
-			chiamataService.modificaChiamata(formInput,pk);
-			return new ResponseEntity<Object>( HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GooseHttpRequestDb.class);
+			log.debug("body: "+input);
+			chiamataService.modificaChiamata(input,pk);
+			return new ResponseEntity<>( HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
 	public ResponseEntity<Object> eliminaFormByPk(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("HttpRequestController - eliminaFormByPk");
+		log.debug("pk "+pk);
 		try {
 			chiamataService.eliminaChiamata(pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

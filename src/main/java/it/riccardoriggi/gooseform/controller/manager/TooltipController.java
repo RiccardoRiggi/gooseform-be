@@ -32,65 +32,75 @@ public class TooltipController {
 
 
 	@PostMapping("/inserisci")
-	public ResponseEntity<Object> inserisciForm(HttpServletRequest request){
-
+	public ResponseEntity<Object> inserisci(HttpServletRequest request){
+		log.debug("TooltipController - inserisci");
 		ObjectMapper mapper = new ObjectMapper();
-		GooseTooltipDb buttonInput = new GooseTooltipDb();
+		GooseTooltipDb input = new GooseTooltipDb();
 
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GooseTooltipDb.class);
-			tooltipService.inserisciTooltip(buttonInput);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GooseTooltipDb.class);
+			log.debug("body "+input);
+			tooltipService.inserisciTooltip(input);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}")
-	public ResponseEntity<Object> getPopupByFormId(HttpServletRequest request, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> getTooltipByFormId(HttpServletRequest request, @PathVariable("formId") String formId){
+		log.debug("TooltipController - getTooltipByFormId");
+		log.debug("formId "+formId);
 		try {
-			return new ResponseEntity<Object>( tooltipService.getTooltipByFormId(formId),HttpStatus.OK);
+			return new ResponseEntity<>( tooltipService.getTooltipByFormId(formId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/{formId}/{componentId}")
-	public ResponseEntity<Object> getPopupById(HttpServletRequest request, @PathVariable("componentId") String componentId, @PathVariable("formId") String formId){
+	public ResponseEntity<Object> getFormById(HttpServletRequest request, @PathVariable("componentId") String componentId, @PathVariable("formId") String formId){
+		log.debug("TooltipController - getFormById");
+		log.debug("formId "+formId);
+		log.debug("componentId "+componentId);
 		try {
-			return new ResponseEntity<Object>( tooltipService.getTooltipById(formId,componentId),HttpStatus.OK);
+			return new ResponseEntity<>( tooltipService.getTooltipById(formId,componentId),HttpStatus.OK);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@PutMapping("/modifica/{pk}")
-	public ResponseEntity<Object> modificaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> modifica(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("TooltipController - modifica");
+		log.debug("pk "+pk);
 		ObjectMapper mapper = new ObjectMapper();
-		GooseTooltipDb buttonInput= new GooseTooltipDb();
-
+		GooseTooltipDb input= new GooseTooltipDb();
 		try {
-			buttonInput = mapper.readValue(request.getReader(), GooseTooltipDb.class);
-			tooltipService.modificaTooltip(buttonInput,pk);
-			return new ResponseEntity<Object>(HttpStatus.OK);
+			input = mapper.readValue(request.getReader(), GooseTooltipDb.class);
+			log.debug("body: "+input);
+			tooltipService.modificaTooltip(input,pk);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (IOException e) {
 			log.error("Errore durante la conversione del JSON Body: ",e);
-			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@DeleteMapping("/elimina/{pk}")
-	public ResponseEntity<Object> eliminaButton(HttpServletRequest request, @PathVariable("pk") int pk){
+	public ResponseEntity<Object> elimina(HttpServletRequest request, @PathVariable("pk") int pk){
+		log.debug("TooltipController - elimina");
+		log.debug("pk "+pk);
 		try {
 			tooltipService.eliminaTooltip(pk);
-			return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (GooseFormException e) {
-			return new ResponseEntity<Object>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getProblem(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
