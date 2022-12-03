@@ -133,7 +133,7 @@ Goose Form BE è la componente di backend sviluppata in Spring Boot che si occup
 
 ---
 
-#### GOOSE_POPUP
+#### GOOSE_TOOLTIP
 |Nome      |Tipo    |   	 
 |---	   |---	    |
 |pk        |int     |
