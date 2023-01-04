@@ -12,10 +12,10 @@ import it.riccardoriggi.gooseform.entity.db.GooseKvComponentDb;
 @Mapper
 public interface GooseKvComponentMapper {
 
-	@Insert("INSERT INTO goose_kv_component(formId, componentId, k, v) VALUES (#{formId},#{componentId},#{k},#{v})")
+	@Insert("INSERT INTO goose_kv_component(formId, componentId, k, v,ordination) VALUES (#{formId},#{componentId},#{k},#{v},#{ordination})")
 	void inserisci(GooseKvComponentDb chiamata);
 
-	@Select("SELECT * FROM goose_kv_component WHERE formId = #{formId} AND componentId = #{componentId} ")
+	@Select("SELECT * FROM goose_kv_component WHERE formId = #{formId} AND componentId = #{componentId} ORDER BY ordination")
 	List<GooseKvComponentDb> getLista(String formId, String componentId);
 
 	@Delete("DELETE FROM goose_kv_component WHERE formId = #{formId} AND componentId = #{componentId} AND k = #{k}")

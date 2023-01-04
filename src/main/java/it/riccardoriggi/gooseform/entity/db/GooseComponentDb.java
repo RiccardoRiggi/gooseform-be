@@ -21,5 +21,6 @@ public class GooseComponentDb {
     private String widthSm;
     private String width;
     private boolean requiredMark;
+    private int ordination;
 
 }

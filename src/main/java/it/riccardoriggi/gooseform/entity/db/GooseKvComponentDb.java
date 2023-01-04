@@ -15,5 +15,6 @@ public class GooseKvComponentDb {
 	private String componentId;
 	private String k;
 	private String v;
+	private int ordination;
 
 }
