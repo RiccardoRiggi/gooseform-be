@@ -22,5 +22,9 @@ public class GooseComponentDb {
     private String width;
     private boolean requiredMark;
     private int ordination;
+    private int paddingTop;
+    private int paddingBottom;
+    private int paddingLeft;
+    private int paddingRight;
 
 }

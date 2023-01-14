@@ -24,5 +24,9 @@ public class GooseComponent {
     private GooseTooltip tooltip;
     private GoosePopup popup;
     private boolean requiredMark;
+    private int paddingTop;
+    private int paddingBottom;
+    private int paddingLeft;
+    private int paddingRight;
 
 }

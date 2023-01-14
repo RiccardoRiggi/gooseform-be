@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 03, 2023 alle 09:33
+-- Creato il: Gen 14, 2023 alle 18:07
 -- Versione del server: 10.4.20-MariaDB
 -- Versione PHP: 8.0.9
 
@@ -64,7 +64,11 @@ CREATE TABLE `goose_component` (
   `widthSm` varchar(10) NOT NULL,
   `width` varchar(10) NOT NULL,
   `requiredMark` tinyint(1) NOT NULL,
-  `ordination` int(10) NOT NULL DEFAULT 1
+  `ordination` int(10) NOT NULL DEFAULT 1,
+  `paddingTop` int(11) NOT NULL DEFAULT 1,
+  `paddingBottom` int(11) NOT NULL DEFAULT 1,
+  `paddingLeft` int(11) NOT NULL DEFAULT 1,
+  `paddingRight` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

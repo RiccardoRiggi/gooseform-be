@@ -85,7 +85,7 @@ public class GooseComponentService implements GooseComponentiInterface{
 	@Override
 	public void modificaComponente(GooseComponentDb componente, String formId, String id) throws GooseFormException{
 		try {
-			componentMapper.updateComponent(componente.getLabel(), componente.getWidthXl(), componente.getWidthLg(), componente.getWidthMd(), componente.getWidthSm(), componente.getWidth(), componente.isRequiredMark(), formId, id, componente.getOrdination());
+			componentMapper.updateComponent(componente.getLabel(), componente.getWidthXl(), componente.getWidthLg(), componente.getWidthMd(), componente.getWidthSm(), componente.getWidth(), componente.isRequiredMark(), formId, id, componente.getOrdination(), componente.getPaddingBottom(), componente.getPaddingLeft(), componente.getPaddingRight(), componente.getPaddingTop());
 		} catch (Exception e) {
 			log.error("Errore durante l'inserimento in GOOSE_BUTTON: ",e);
 			throw new GooseFormException(500,e.getMessage());
