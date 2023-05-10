@@ -103,6 +103,87 @@ public class RootController {
 		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
 	}
 
+	@GetMapping("/luoghiEsempioUno")
+	public ResponseEntity<Object> luoghiEsempioUno(HttpServletRequest request){
+
+		/*try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+
+
+		log.info("HEADER_1: "+request.getHeader("HEADER_1"));
+		try {
+			log.info("BODY: "+request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+		} catch (IOException e) {
+			log.error("Errore lettura body");
+		}
+
+
+		List<GooseKeyValue> listaValori = new ArrayList<>();
+		listaValori.add(new GooseKeyValue("GE", "Genova"));
+		listaValori.add(new GooseKeyValue("SV", "Savona"));
+		listaValori.add(new GooseKeyValue("IM", "Imperia"));
+		listaValori.add(new GooseKeyValue("SP", "La Spezia"));
+		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
+	}
+
+	@GetMapping("/luoghiEsempioDue")
+	public ResponseEntity<Object> luoghiEsempioDue(HttpServletRequest request){
+
+		/*try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+
+
+		log.info("HEADER_1: "+request.getHeader("HEADER_1"));
+		try {
+			log.info("BODY: "+request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+		} catch (IOException e) {
+			log.error("Errore lettura body");
+		}
+
+
+		List<GooseKeyValue> listaValori = new ArrayList<>();
+		listaValori.add(new GooseKeyValue("GE", "Genova - GE"));
+		listaValori.add(new GooseKeyValue("SV", "Savona - SV"));
+		listaValori.add(new GooseKeyValue("IM", "Imperia - IM"));
+		listaValori.add(new GooseKeyValue("SP", "La Spezia - SP"));
+		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
+	}
+
+	@GetMapping("/luoghiEsempioTre")
+	public ResponseEntity<Object> luoghiEsempioTre(HttpServletRequest request){
+
+		/*try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+
+
+		log.info("HEADER_1: "+request.getHeader("HEADER_1"));
+		try {
+			log.info("BODY: "+request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
+		} catch (IOException e) {
+			log.error("Errore lettura body");
+		}
+
+
+		List<GooseKeyValue> listaValori = new ArrayList<>();
+		listaValori.add(new GooseKeyValue("GE", "Genova (GE)"));
+		listaValori.add(new GooseKeyValue("SV", "Savona (SV)"));
+		listaValori.add(new GooseKeyValue("IM", "Imperia (IM)"));
+		listaValori.add(new GooseKeyValue("SP", "La Spezia (SP)"));
+		return new ResponseEntity<Object>(listaValori,HttpStatus.OK);
+	}
+
 
 
 }

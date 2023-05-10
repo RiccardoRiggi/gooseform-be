@@ -173,6 +173,10 @@ public class GooseConversionUtil {
 		componente.setWidthMd(componenteDb.getWidthMd());
 		componente.setWidthSm(componenteDb.getWidthSm());
 		componente.setWidthXl(componenteDb.getWidthXl());
+		componente.setPaddingBottom(componenteDb.getPaddingBottom());
+		componente.setPaddingLeft(componenteDb.getPaddingLeft());
+		componente.setPaddingRight(componenteDb.getPaddingRight());
+		componente.setPaddingTop(componenteDb.getPaddingTop());
 		componente.setSetting(getSetting(componenteDb.getType(),listaComponentiSpecificiDb,listaChiaveValoreDb,chiamataHttp,kvHttp));
 		return componente;
 	}
